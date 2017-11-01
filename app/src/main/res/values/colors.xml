@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorBackground">#FFFFFF</color>
-    <color name="colorText">#212121</color>
-    <color name="colorSubBackground">#E0E0E0</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlackGray">#212121</color>
+    <color name="colorMediumGray">#717171</color>
+    <color name="colorLightGray">#E0E0E0</color>
     <color name="colorLime">#CCDB38</color>
     <color name="colorDarkerLime">#98aa00</color>
     <color name="colorAmber">#FFC107</color>
