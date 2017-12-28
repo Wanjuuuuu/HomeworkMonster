@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HomeworkMonster</string>
+    <string name="menu_button">menu_button</string>
+    <string name="search_button">search_button</string>
+</resources>
