@@ -1,11 +1,13 @@
-package com.example.wanjukim.homeworkmonster;
+package com.example.wanjukim.homeworkmonster.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.wanjukim.homeworkmonster.R;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
