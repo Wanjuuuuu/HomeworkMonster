@@ -24,7 +24,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //when option is selected
-
         return super.onOptionsItemSelected(item);
     }
 }
