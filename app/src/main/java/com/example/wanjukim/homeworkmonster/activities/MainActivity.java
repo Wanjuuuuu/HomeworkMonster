@@ -1,11 +1,11 @@
 package com.example.wanjukim.homeworkmonster.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.wanjukim.homeworkmonster.R;
+import com.example.wanjukim.homeworkmonster.utils.Utils;
 
 public class MainActivity extends BaseActivity {
 
@@ -18,6 +18,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar,menu);
+        Utils.test();
         return true;
     }
 
