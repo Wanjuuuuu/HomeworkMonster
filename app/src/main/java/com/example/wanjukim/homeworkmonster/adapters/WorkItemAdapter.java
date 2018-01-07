@@ -46,38 +46,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
     public void onBindViewHolder(WorkItemHolder viewHolder, int position) {
         WorkItem workItem=workItems.get(position);
 
-        viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
-        viewHolder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
-            @Override
-            public void onStartOpen(SwipeLayout layout) {
-
-            }
-
-            @Override
-            public void onOpen(SwipeLayout layout) {
-
-            }
-
-            @Override
-            public void onStartClose(SwipeLayout layout) {
-
-            }
-
-            @Override
-            public void onClose(SwipeLayout layout) {
-
-            }
-
-            @Override
-            public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
-
-            }
-
-            @Override
-            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
-
-            }
-        });
+        viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut); // move a bottom layer following by swiping
 
         viewHolder.bind(workItem);
 
@@ -119,6 +88,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
         @BindView(R.id.main_subject) TextView subject;
         @BindView(R.id.main_dday) TextView dDay;
         @BindView(R.id.main_deadline) TextView deadline;
+        @BindView(R.id.bottom_swipe_layout) LinearLayout bottomLayout;
         @BindView(R.id.swipe_option1) ConstraintLayout option1;
         @BindView(R.id.swipe_option2) ConstraintLayout option2;
         @BindView(R.id.swipe_option3) ConstraintLayout option3;
@@ -126,6 +96,8 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
         WorkItemHolder(View view){
             super(view);
             ButterKnife.bind(this, view);
+
+//            swipeLayout.addDrag(SwipeLayout.DragEdge.Left,bottomLayout);
         }
 
         private void bind(WorkItem workItem){

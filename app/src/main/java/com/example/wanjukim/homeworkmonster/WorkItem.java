@@ -33,7 +33,7 @@ public class WorkItem {
     }
 
     public String getDeadline() {
-        SimpleDateFormat format=new SimpleDateFormat("YYYY-MM-DD");
+        SimpleDateFormat format=new SimpleDateFormat("YYYY-MM-DD"); // 시간으로 변경?
         return format.format(deadline).toString();
     }
 }
