@@ -1,5 +1,6 @@
 package com.example.wanjukim.homeworkmonster;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -28,10 +29,11 @@ public class WorkItem {
     }
 
     public String getdDay() {
-        return "D-"+new Integer(dDay).toString();
+        return String.format("D-%02d",new Integer(dDay));
     }
 
     public String getDeadline() {
-        return deadline.toString();
+        SimpleDateFormat format=new SimpleDateFormat("YYYY-MM-DD");
+        return format.format(deadline).toString();
     }
 }
