@@ -11,7 +11,6 @@
     <!--bottom-->
     <LinearLayout
         android:id="@+id/bottom_swipe_layout"
-        android:layout_gravity="fill"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -26,7 +25,7 @@
             tools:layout_editor_absoluteY="8dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="@string/option_motify"
@@ -45,7 +44,7 @@
             android:background="@color/colorOption2">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="@string/option_giveup"
@@ -64,7 +63,7 @@
             android:background="@color/colorOption3">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="@string/option_submit"
@@ -92,7 +91,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginEnd="8dp">
 
             <TextView
                 android:id="@+id/main_dday"
@@ -100,8 +100,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
                 android:layout_marginTop="10dp"
                 android:text="D-Day"
                 android:textColor="@color/colorDarkerAmber"
@@ -118,9 +116,6 @@
                 android:gravity="end"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-1dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
                 android:text="Deadline"
                 android:textColor="@color/colorMediumGray"
                 android:textSize="@dimen/small_string_size"
@@ -143,7 +138,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
 
             <TextView
                 android:id="@+id/main_work"
@@ -160,7 +157,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                app:layout_constraintBottom_toTopOf="@+id/main_subject" />
+                app:layout_constraintBottom_toTopOf="@+id/main_subject"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/main_subject"
@@ -175,7 +174,9 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="2dp"
-                app:layout_constraintHorizontal_bias="0.0" />
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
