@@ -1,11 +1,15 @@
 package com.example.wanjukim.homeworkmonster.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.daimajia.swipe.util.Attributes;
 import com.example.wanjukim.homeworkmonster.R;
@@ -22,6 +26,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.main_recyclerview) RecyclerView recyclerView;
+    @BindView(R.id.add_button) FloatingActionButton addWorkButton;
 
     private RecyclerView.Adapter adapter;
     private ArrayList<WorkItem> workItems;
@@ -55,6 +60,13 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        addWorkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAddWork=new Intent(getApplicationContext(),AddWorkActivity.class);
+                startActivity(intentAddWork);
+            }
+        });
     }
 
     @Override
