@@ -15,6 +15,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.WorkItem;
+import com.example.wanjukim.homeworkmonster.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkItemHolder> {
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<WorkItem> workItems;
+    private List<WorkItem> workItems;
 
     public WorkItemAdapter(Context context,ArrayList<WorkItem> workItems){
         this.context=context;
@@ -43,12 +44,67 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
     }
 
     @Override
-    public void onBindViewHolder(WorkItemHolder viewHolder, int position) {
-        WorkItem workItem=workItems.get(position);
+    public void onBindViewHolder(WorkItemHolder viewHolder, final int position) {
+        final WorkItem workItem=workItems.get(position);
+//        boolean prevState=workItem.getSwipeState();
+
+        viewHolder.bind(workItem);
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut); // move a bottom layer following by swiping
 
-        viewHolder.bind(workItem);
+        viewHolder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+            @Override
+            public void onStartOpen(SwipeLayout layout) {
+                workItem.setSwipeState(true);
+                Log.d("Debugging_",position+" open");
+                for(int i=0;i<getItemCount();i++)
+                    Log.d("Debugging_",i+": "+workItems.get(i).getSwipeState());
+                for (int i=0;i<getItemCount();i++) {
+                    if(i!=position&&workItems.get(i).getSwipeState()) {
+                        workItems.get(i).setSwipeState(false);
+                        notifyItemChanged(i);
+                        Log.d("Debugging_",i+" forced to close");
+                    }
+                }
+                for(int i=0;i<getItemCount();i++)
+                    Log.d("Debugging_",i+": "+workItems.get(i).getSwipeState());
+            }
+
+            @Override
+            public void onOpen(SwipeLayout layout) {
+
+            }
+
+            @Override
+            public void onStartClose(SwipeLayout layout) {
+
+            }
+
+            @Override
+            public void onClose(SwipeLayout layout) {
+                workItem.setSwipeState(false);
+                Log.d("Debugging_",position+" close");
+                for(int i=0;i<getItemCount();i++)
+                    Log.d("Debugging_",i+": "+workItems.get(i).getSwipeState());
+//
+//                for (int i=0;i<getItemCount();i++) {
+//                    workItems.get(i).setSwipeState(false);
+//                    if(i!=position)
+//                        notifyItemChanged(i);
+//                }
+            }
+
+            @Override
+            public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+
+            }
+
+            @Override
+            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
+
+            }
+        });
+
 
         viewHolder.option1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +138,13 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
         return workItems.size();
     }
 
+    public boolean getIfSwipedItem(){
+        for(WorkItem item:workItems)
+            if(item.getSwipeState())
+                return true;
+        return false;
+    }
+
     class WorkItemHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.swipe_layout) SwipeLayout swipeLayout;
         @BindView(R.id.main_work) TextView work;
@@ -96,8 +159,6 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
         WorkItemHolder(View view){
             super(view);
             ButterKnife.bind(this, view);
-
-//            swipeLayout.addDrag(SwipeLayout.DragEdge.Left,bottomLayout);
         }
 
         private void bind(WorkItem workItem){
@@ -106,7 +167,15 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             dDay.setText(workItem.getdDay());
             deadline.setText(workItem.getDeadline());
 
-            Log.d("Debugging_","bind: "+workItem.getWork());
+            if(getIfSwipedItem()){ // when one of item holders is swiped
+                if(!workItem.getSwipeState()) {
+//                    workItem.setSwipeState(false);
+                    swipeLayout.close();
+//                    SwipeLayout.SwipeListener.
+                }
+            }
+
+//            Log.d("Debugging_","bind: "+workItem.getWork());
         }
     }
 }

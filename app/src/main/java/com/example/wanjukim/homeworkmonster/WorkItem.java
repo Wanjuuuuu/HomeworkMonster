@@ -12,12 +12,14 @@ public class WorkItem {
     private String subject;
     private int dDay;
     private Date deadline;
+    private boolean swipeState;
 
     public WorkItem(String work,String subject,int dDay,Date deadline){
         this.work=work;
         this.subject=subject;
         this.dDay=dDay;
         this.deadline=deadline;
+        this.swipeState=false;
     }
 
     public String getWork() {
@@ -33,7 +35,15 @@ public class WorkItem {
     }
 
     public String getDeadline() {
-        SimpleDateFormat format=new SimpleDateFormat("YYYY-MM-DD"); // 시간으로 변경?
+        SimpleDateFormat format=new SimpleDateFormat("MM-DD hh:mm"); // 시간으로 변경?
         return format.format(deadline).toString();
+    }
+
+    public boolean getSwipeState(){
+        return swipeState;
+    }
+
+    public void setSwipeState(boolean flag){
+        swipeState=flag;
     }
 }

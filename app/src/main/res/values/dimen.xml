@@ -5,7 +5,7 @@
     <dimen name="setting_list_gap">70dp</dimen>
     <dimen name="border_size">1dp</dimen>
     <dimen name="option_string_size">25sp</dimen>
-    <dimen name="large_string_size">20sp</dimen>
+    <dimen name="large_string_size">18sp</dimen>
     <dimen name="medium_string_size">16sp</dimen>
     <dimen name="small_string_size">14sp</dimen>
 </resources>

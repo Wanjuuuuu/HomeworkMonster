@@ -72,7 +72,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar,menu);
-        Utils.test();
         return true;
     }
 
