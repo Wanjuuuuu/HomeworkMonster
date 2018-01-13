@@ -37,6 +37,8 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
         this.context=context;
         inflater=LayoutInflater.from(context);
         this.workItems=workItems;
+
+        setMode(Attributes.Mode.Single);
     }
 
     @Override

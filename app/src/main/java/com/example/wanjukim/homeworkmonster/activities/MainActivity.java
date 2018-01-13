@@ -22,13 +22,14 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.main_recyclerview) RecyclerView recyclerView;
     @BindView(R.id.add_button) FloatingActionButton addWorkButton;
 
-    private RecyclerView.Adapter adapter;
+    private WorkItemAdapter adapter;
     private ArrayList<WorkItem> workItems;
 
     @Override
@@ -43,30 +44,10 @@ public class MainActivity extends BaseActivity {
         workItems.add(new WorkItem("Microprocessor exercise #5","Microprocessor",3,new Date()));
 
         adapter=new WorkItemAdapter(this,workItems);
-        ((WorkItemAdapter) adapter).setMode(Attributes.Mode.Single);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+
         recyclerView.setAdapter(adapter);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)); // vertically
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
-
-        addWorkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentAddWork=new Intent(getApplicationContext(),AddWorkActivity.class);
-                startActivity(intentAddWork);
-            }
-        });
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -79,5 +60,11 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //when option is selected
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.add_button)
+    public void onClickAddButton() {
+        Intent intentAddWork=new Intent(this, AddWorkActivity.class);
+        startActivity(intentAddWork);
     }
 }
