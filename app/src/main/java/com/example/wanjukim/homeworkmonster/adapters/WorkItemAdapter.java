@@ -33,7 +33,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
     private LayoutInflater inflater;
     private List<WorkItem> workItems;
 
-    public WorkItemAdapter(Context context,ArrayList<WorkItem> workItems){
+    public WorkItemAdapter(Context context,List<WorkItem> workItems){
         this.context=context;
         inflater=LayoutInflater.from(context);
         this.workItems=workItems;
@@ -90,7 +90,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             this.workItem = workItem;
 
             work.setText(workItem.getWork());
-            subject.setText(workItem.getSubject());
+            subject.setText(workItem.getSubId()+" ");// 이후 subject로 변경해주기
             dDay.setText(workItem.getdDay());
             deadline.setText(workItem.getDeadline());
         }

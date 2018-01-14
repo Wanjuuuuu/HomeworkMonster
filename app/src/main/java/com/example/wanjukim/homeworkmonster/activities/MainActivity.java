@@ -13,12 +13,15 @@ import android.widget.Button;
 
 import com.daimajia.swipe.util.Attributes;
 import com.example.wanjukim.homeworkmonster.R;
+import com.example.wanjukim.homeworkmonster.Semester;
+import com.example.wanjukim.homeworkmonster.Subject;
 import com.example.wanjukim.homeworkmonster.WorkItem;
 import com.example.wanjukim.homeworkmonster.adapters.WorkItemAdapter;
 import com.example.wanjukim.homeworkmonster.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,10 +41,17 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+//        semesters=new ArrayList<>();
+//        subjects=new ArrayList<>();
         workItems=new ArrayList<>();
-        workItems.add(new WorkItem("Web Client Upgrade","Computer Network",1,new Date()));
-        workItems.add(new WorkItem("Virtual World","Software Engineering",2,new Date()));
-        workItems.add(new WorkItem("Microprocessor exercise #5","Microprocessor",3,new Date()));
+
+//        subjects.add(new Subject(1,"Computer network",1));
+//        subjects.add(new Subject(2,"Software Engineering",1));
+//        subjects.add(new Subject(3,"Microprocessor",1));
+
+        workItems.add(new WorkItem(1,"Web Client upgrade",1,new Date(),3,"Important"));
+        workItems.add(new WorkItem(2,"Virtual World implementation",2,new Date(),2,"very good"));
+        workItems.add(new WorkItem(3,"Microprocessor exercise #4",3,new Date(),2,"hate it"));
 
         adapter=new WorkItemAdapter(this,workItems);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -58,7 +68,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //when option is selected
+        switch (item.getItemId()){
+            case R.id.search_button:
+                return true;
+            case R.id.menu_button:
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
