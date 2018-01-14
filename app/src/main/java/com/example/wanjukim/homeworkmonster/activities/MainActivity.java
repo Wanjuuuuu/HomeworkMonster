@@ -33,6 +33,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.add_button) FloatingActionButton addWorkButton;
 
     private WorkItemAdapter adapter;
+    private ArrayList<Semester> semesters;
+    private ArrayList<Subject> subjects;
     private ArrayList<WorkItem> workItems;
 
     @Override
@@ -41,17 +43,19 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-//        semesters=new ArrayList<>();
-//        subjects=new ArrayList<>();
+        semesters=new ArrayList<>();
+        subjects=new ArrayList<>();
         workItems=new ArrayList<>();
 
-//        subjects.add(new Subject(1,"Computer network",1));
-//        subjects.add(new Subject(2,"Software Engineering",1));
-//        subjects.add(new Subject(3,"Microprocessor",1));
+        semesters.add(new Semester(1,new Date(),new Date()));
 
-        workItems.add(new WorkItem(1,"Web Client upgrade",1,new Date(),3,"Important"));
-        workItems.add(new WorkItem(2,"Virtual World implementation",2,new Date(),2,"very good"));
-        workItems.add(new WorkItem(3,"Microprocessor exercise #4",3,new Date(),2,"hate it"));
+        subjects.add(new Subject(1,"Computer network",semesters.get(0)));
+        subjects.add(new Subject(2,"Software Engineering",semesters.get(0)));
+        subjects.add(new Subject(3,"Microprocessor",semesters.get(0)));
+
+        workItems.add(new WorkItem(1,"Web Client upgrade",subjects.get(0),new Date(),3,"Important"));
+        workItems.add(new WorkItem(2,"Virtual World implementation",subjects.get(1),new Date(),2,"very good"));
+        workItems.add(new WorkItem(3,"Microprocessor exercise #4",subjects.get(2),new Date(),2,"hate it"));
 
         adapter=new WorkItemAdapter(this,workItems);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);

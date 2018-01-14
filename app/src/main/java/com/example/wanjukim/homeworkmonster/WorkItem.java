@@ -3,37 +3,53 @@ package com.example.wanjukim.homeworkmonster;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Wanju Kim on 2018-01-07.
  */
 
-public class WorkItem {
-    private int workId;
+public class WorkItem extends RealmObject {
+    @PrimaryKey
+    private int id;
     private String work;
-    private int subId;
+    private Subject subject;
     private Date deadline;
     private int alarm;
     private String memo;
-    private WorkState state;
+    private int state;
+
+    public static final int BEFORE=0;
+    public static final int SUBMIT=1;
+    public static final int GIVEUP=2;
+    public static final int END=3;
+
+    @Ignore
     private boolean swipeState; //
 
-    public WorkItem(int workId, String work, int subId, Date deadline, int alarm, String memo) {
-        this.workId = workId;
+    public WorkItem(){
+
+    }
+
+    public WorkItem(int id, String work, Subject subject, Date deadline, int alarm, String memo) {
+        this.id = id;
         this.work = work;
-        this.subId = subId;
+        this.subject=subject;
         this.deadline = deadline;
         this.alarm = alarm;
         this.memo = memo;
-        this.state = state;
+        this.state = state; //
         this.swipeState = false;
     }
 
-    public int getWorkId() {
-        return workId;
+    public int getId() {
+        return id;
     }
 
-    public void setWorkId(int workId) {
-        this.workId = workId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getWork() {
@@ -44,12 +60,12 @@ public class WorkItem {
         this.work = work;
     }
 
-    public int getSubId() {
-        return subId;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setSubId(int subId) {
-        this.subId = subId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public void setDeadline(Date deadline) {
@@ -77,19 +93,13 @@ public class WorkItem {
         this.memo = memo;
     }
 
-    public WorkState getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(WorkState state) {
+    public void setState(int state) {
         this.state = state;
     }
-
-    public String getdDay() {
-        long diff=new Date().getTime()-deadline.getTime();
-        int dDay=(int)diff/(24*60*60*1000);
-        return String.format("D-%02d",dDay);
-    } // 임의로 넣어둠
 
     public boolean getSwipeState(){
         return swipeState;
@@ -98,4 +108,10 @@ public class WorkItem {
     public void setSwipeState(boolean flag){
         swipeState=flag;
     }
+
+    public String getdDay() {
+        long diff=new Date().getTime()-deadline.getTime();
+        int dDay=(int)diff/(24*60*60*1000);
+        return String.format("D-%02d",dDay);
+    } // 임의로 넣어둠
 }

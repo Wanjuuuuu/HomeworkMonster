@@ -1,26 +1,34 @@
 package com.example.wanjukim.homeworkmonster;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Wanju Kim on 2018-01-13.
  */
 
-public class Subject {
-    private int subId;
+public class Subject extends RealmObject {
+    @PrimaryKey
+    private int id;
     private String subject;
-    private int semId;
+    private Semester semester;
 
-    public Subject(int subId, String subject, int semId) {
-        this.subId = subId;
+    public Subject(){
+
+    }
+
+    public Subject(int id, String subject, Semester semester) {
+        this.id = id;
         this.subject = subject;
-        this.semId = semId;
+        this.semester=semester;
     }
 
-    public int getSubId() {
-        return subId;
+    public int getId() {
+        return id;
     }
 
-    public void setSubId(int subId) {
-        this.subId = subId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSubject() {
@@ -31,11 +39,11 @@ public class Subject {
         this.subject = subject;
     }
 
-    public int getSemId() {
-        return semId;
+    public Semester getSemester() {
+        return semester;
     }
 
-    public void setSemId(int semId) {
-        this.semId = semId;
+    public void setSemester(Semester semester) {
+        this.semester = semester;
     }
 }

@@ -90,7 +90,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             this.workItem = workItem;
 
             work.setText(workItem.getWork());
-            subject.setText(workItem.getSubId()+" ");// 이후 subject로 변경해주기
+            subject.setText(workItem.getId()+" ");// 이후 subject로 변경해주기
             dDay.setText(workItem.getdDay());
             deadline.setText(workItem.getDeadline());
         }
