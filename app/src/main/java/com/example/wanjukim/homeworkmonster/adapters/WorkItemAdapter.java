@@ -3,7 +3,6 @@ package com.example.wanjukim.homeworkmonster.adapters;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,8 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
 import com.example.wanjukim.homeworkmonster.R;
-import com.example.wanjukim.homeworkmonster.WorkItem;
-import com.example.wanjukim.homeworkmonster.utils.Utils;
+import com.example.wanjukim.homeworkmonster.models.WorkItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -91,8 +88,8 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
 
             work.setText(workItem.getWork());
             subject.setText(workItem.getId()+" ");// 이후 subject로 변경해주기
-            dDay.setText(workItem.getdDay());
-            deadline.setText(workItem.getDeadline());
+//            dDay.setText(workItem.getdDay());
+//            deadline.setText(workItem.getDeadline());
         }
 
         @OnClick(R.id.swipe_option1)

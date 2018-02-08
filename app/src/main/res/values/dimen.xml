@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--src size-->
     <dimen name="icon">32dp</dimen>
-    <dimen name="spinner_height">50dp</dimen>
+    <!--gap-->
+    <dimen name="spinner_gap">50dp</dimen>
     <dimen name="main_list_gap">80dp</dimen>
-    <dimen name="setting_list_gap">70dp</dimen>
+    <dimen name="setting_list_gap">60dp</dimen>
+    <!--line-->
     <dimen name="border_size">1dp</dimen>
+    <dimen name="etv_line_size">0.5dp</dimen>
+    <!--font size-->
     <dimen name="option_string_size">25sp</dimen>
     <dimen name="large_string_size">18sp</dimen>
     <dimen name="medium_string_size">16sp</dimen>

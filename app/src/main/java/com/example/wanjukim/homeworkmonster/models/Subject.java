@@ -1,4 +1,4 @@
-package com.example.wanjukim.homeworkmonster;
+package com.example.wanjukim.homeworkmonster.models;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

@@ -1,4 +1,4 @@
-package com.example.wanjukim.homeworkmonster;
+package com.example.wanjukim.homeworkmonster.models;
 
 import java.util.Date;
 
