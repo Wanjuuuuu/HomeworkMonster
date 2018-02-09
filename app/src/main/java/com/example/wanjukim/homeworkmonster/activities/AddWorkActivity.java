@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.models.Subject;
@@ -28,7 +27,11 @@ import io.realm.Realm;
 public class AddWorkActivity extends BaseActivity {
     @BindView(R.id.etv_work)ClearEditText etvWork;
     @BindView(R.id.etv_memo)ClearEditText etvMemo;
+    @BindView(R.id.spinner_subject)NiceSpinner spinnerSubject;
+    @BindView(R.id.spinner_alarm)NiceSpinner spinnerAlarm;
+
     private List<Subject> subjects;
+
     private String subject,workname,memo;
     private int alarm;
 

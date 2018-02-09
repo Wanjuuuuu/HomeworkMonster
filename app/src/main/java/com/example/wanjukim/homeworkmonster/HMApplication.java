@@ -14,6 +14,7 @@ public class HMApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         Realm.init(this);
         RealmConfiguration config=new RealmConfiguration.Builder()
                 .name("HMDB").schemaVersion(0).build();

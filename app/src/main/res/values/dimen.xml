@@ -3,7 +3,8 @@
     <!--src size-->
     <dimen name="icon">32dp</dimen>
     <!--gap-->
-    <dimen name="spinner_gap">50dp</dimen>
+    <dimen name="spinner_gap">36dp</dimen>
+    <dimen name="etv_gap">36dp</dimen>
     <dimen name="main_list_gap">80dp</dimen>
     <dimen name="setting_list_gap">60dp</dimen>
     <!--line-->
