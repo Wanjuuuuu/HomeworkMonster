@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class Subject extends RealmObject {
     @PrimaryKey
-    private int id;
+    private String id;
     private String subject;
     private Semester semester;
 
@@ -17,17 +17,17 @@ public class Subject extends RealmObject {
 
     }
 
-    public Subject(int id, String subject, Semester semester) {
+    public Subject(String id, String subject, Semester semester) {
         this.id = id;
         this.subject = subject;
         this.semester=semester;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

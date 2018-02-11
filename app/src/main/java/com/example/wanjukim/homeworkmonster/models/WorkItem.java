@@ -13,7 +13,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class WorkItem extends RealmObject {
     @PrimaryKey
-    private int id;
+    private String id;
     private String work;
     private Subject subject;
     private Date deadline;
@@ -21,34 +21,39 @@ public class WorkItem extends RealmObject {
     private String memo;
     private int state;
 
-    public static final int BEFORE=0;
-    public static final int SUBMIT=1;
-    public static final int GIVEUP=2;
-    public static final int END=3;
+    public static final int BEFORE = 0;
+    public static final int SUBMIT = 1;
+    public static final int GIVEUP = 2;
+    public static final int END = 3;
+    public static final int DELETED = 4;
 
     @Ignore
     private boolean swipeState; //
 
-    public WorkItem(){
+    public WorkItem() {
 
     }
 
-    public WorkItem(int id, String work, Subject subject, Date deadline, int alarm, String memo) {
+    public WorkItem(String id, String work, Subject subject, Date deadline, int alarm, String memo) {
         this.id = id;
         this.work = work;
-        this.subject=subject;
+        this.subject = subject;
         this.deadline = deadline;
         this.alarm = alarm;
         this.memo = memo;
-        this.state = state; //
+        if (deadline.compareTo(new Date()) > 0) { // deadline > now
+            this.state = BEFORE;
+        } else {
+            this.state = END;
+        }
         this.swipeState = false;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -73,7 +78,7 @@ public class WorkItem extends RealmObject {
     }
 
     public String getDeadline() {
-        SimpleDateFormat format=new SimpleDateFormat("MM-DD hh:mm"); // 시간으로 변경?
+        SimpleDateFormat format = new SimpleDateFormat("MM-DD hh:mm"); // 시간으로 변경?
         return format.format(deadline).toString();
     }
 
@@ -94,6 +99,13 @@ public class WorkItem extends RealmObject {
     }
 
     public int getState() {
+        if (state == SUBMIT || state == GIVEUP || state == DELETED) {
+            return state;
+        }
+
+        if (deadline.compareTo(new Date()) <= 0) {
+            setState(END);
+        }
         return state;
     }
 
@@ -101,17 +113,17 @@ public class WorkItem extends RealmObject {
         this.state = state;
     }
 
-    public boolean getSwipeState(){
+    public boolean getSwipeState() {
         return swipeState;
     }
 
-    public void setSwipeState(boolean flag){
-        swipeState=flag;
+    public void setSwipeState(boolean flag) {
+        swipeState = flag;
     }
 
     public String getdDay() {
-        long diff=new Date().getTime()-deadline.getTime();
-        int dDay=(int)diff/(24*60*60*1000);
-        return String.format("D-%02d",dDay);
+        long diff = new Date().getTime() - deadline.getTime();
+        int dDay = (int) diff / (24 * 60 * 60 * 1000);
+        return String.format("D-%02d", dDay);
     } // 임의로 넣어둠
 }

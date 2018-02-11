@@ -2,6 +2,8 @@ package com.example.wanjukim.homeworkmonster;
 
 import android.app.Application;
 
+import com.example.wanjukim.homeworkmonster.realm.DBMigration;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -17,7 +19,7 @@ public class HMApplication extends Application {
 
         Realm.init(this);
         RealmConfiguration config=new RealmConfiguration.Builder()
-                .name("HMDB").schemaVersion(0).build();
+                .name("HMDB").schemaVersion(2).migration(new DBMigration()).build();
         Realm.setDefaultConfiguration(config);
     }
 }

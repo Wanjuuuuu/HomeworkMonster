@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 /**
  * Created by Wanju Kim on 2018-01-06.
@@ -94,17 +95,25 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
 
         @OnClick(R.id.swipe_option1)
         public void onClickModify() {
-            // TODO: 2018-01-14 modify
+            // TODO : make new intent activity
         }
 
         @OnClick(R.id.swipe_option2)
         public void onClickGiveUp() {
-            // TODO: 2018-01-14 give up
+            Realm realm=Realm.getDefaultInstance();
+            realm.beginTransaction();
+            workItem.setState(WorkItem.GIVEUP);
+            realm.commitTransaction();
+            notifyDataSetChanged();
         }
 
         @OnClick(R.id.swipe_option3)
         public void onClickSubmit() {
-            // TODO: 2018-01-14 submit
+            Realm realm=Realm.getDefaultInstance();
+            realm.beginTransaction();
+            workItem.setState(WorkItem.SUBMIT);
+            realm.commitTransaction();
+            notifyDataSetChanged();
         }
 
         @Override

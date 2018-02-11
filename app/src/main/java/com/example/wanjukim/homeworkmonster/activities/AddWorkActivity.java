@@ -14,6 +14,7 @@ import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -32,9 +33,6 @@ public class AddWorkActivity extends BaseActivity {
 
     private List<Subject> subjects;
 
-    private String subject,workname,memo;
-    private int alarm;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +40,7 @@ public class AddWorkActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         subjects=new ArrayList<>();
-//        ArrayAdapter subjectAdapter=new SpinnerAdapter();
 
-//        subjectSpinner.setOnClickListener(new AdapterView.OnItemSelectedListener(){
-//
-//        });
     }
 
     @Override
@@ -68,12 +62,13 @@ public class AddWorkActivity extends BaseActivity {
     private void addWorkItem() {
         String workname=etvWork.getText().toString();
         String memo=etvMemo.getText().toString();
+        // more attributes
 
-        Realm realm = Realm.getDefaultInstance();
+        Realm realm = Realm.getDefaultInstance(); // opens default db
 
         realm.beginTransaction();
 
-        WorkItem workItem = realm.createObject(WorkItem.class, (int) (Math.random() * 10000));
+        WorkItem workItem = realm.createObject(WorkItem.class, UUID.randomUUID().toString());
         workItem.setWork(workname);
         workItem.setMemo(memo);
 

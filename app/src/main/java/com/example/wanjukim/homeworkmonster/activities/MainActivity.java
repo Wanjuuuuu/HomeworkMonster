@@ -12,6 +12,8 @@ import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.adapters.WorkItemAdapter;
 
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,7 +36,7 @@ public class MainActivity extends BaseActivity {
 
         Realm realm = Realm.getDefaultInstance();
 
-        workItems = realm.where(WorkItem.class).findAll();
+        workItems = realm.where(WorkItem.class).equalTo("state",WorkItem.BEFORE).greaterThan("deadline",new Date()).findAll(); //
 
         adapter=new WorkItemAdapter(this,workItems);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
