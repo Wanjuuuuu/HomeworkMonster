@@ -3,9 +3,9 @@ package com.example.wanjukim.homeworkmonster.activities;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,15 +13,14 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 import com.example.wanjukim.homeworkmonster.R;
-import com.example.wanjukim.homeworkmonster.adapters.SubjectArrayAdapter;
+import com.example.wanjukim.homeworkmonster.models.Semester;
 import com.example.wanjukim.homeworkmonster.models.Subject;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.utils.ClearEditText;
 import com.example.wanjukim.homeworkmonster.utils.EventListenSpinner;
 
-import org.angmarch.views.NiceSpinner;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,6 +42,7 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
     @BindColor(R.color.colorAmber)int colorAmber;
     @BindColor(R.color.colorMediumGray)int colorGray;
 
+    private final static String TAG=AddWorkActivity.class.getSimpleName();
     private RealmResults<Subject> subjects;
     private List<String> subjectNames;
     private String[] alarms={"1 day","2 days","3 days","4 days","5 days","6 days","a week"};
@@ -59,25 +59,39 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
 
         subjects=realm.where(Subject.class).findAll(); // TODO : filtering default semester!!
 
-        SpinnerAdapter subjectSpinnerAdapter=new SubjectArrayAdapter(this,android.R.layout.simple_list_item_1,subjects); // working??????
+        SpinnerAdapter subjectSpinnerAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,subjects);
         spinnerSubject.setAdapter(subjectSpinnerAdapter);
         spinnerSubject.setSpinnerEventListener(this);
         spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String itemName=(String)spinnerSubject.getSelectedItem();
+                subject=(Subject)spinnerSubject.getSelectedItem();
+                Log.d(TAG,subject.getSubject());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                subject=null; // TODO : default subject exists?
+                subject=(Subject)spinnerSubject.getSelectedItem(); // TODO : default subject exists? null???
+                Log.d(TAG,subject.getSubject());
             }
         });
 
-        SpinnerAdapter alarmSpinnerAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,alarms);
+        final SpinnerAdapter alarmSpinnerAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,alarms);
         spinnerAlarm.setAdapter(alarmSpinnerAdapter);
         spinnerAlarm.setSpinnerEventListener(this);
+        spinnerAlarm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                alarm=position+1;
+//                Log.d(TAG,String.valueOf(alarm));
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                alarm=spinnerAlarm.getSelectedItemPosition();
+//                Log.d(TAG,String.valueOf(alarm));
+            }
+        });
     }
 
     @Override
@@ -108,6 +122,7 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
         WorkItem workItem = realm.createObject(WorkItem.class, UUID.randomUUID().toString());
         workItem.setWork(workname);
         workItem.setMemo(memo);
+
 
         realm.commitTransaction();
     }

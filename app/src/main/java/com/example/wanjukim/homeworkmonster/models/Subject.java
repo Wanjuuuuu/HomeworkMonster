@@ -46,4 +46,9 @@ public class Subject extends RealmObject {
     public void setSemester(Semester semester) {
         this.semester = semester;
     }
+
+    @Override
+    public String toString() {
+        return getSubject();
+    }
 }
