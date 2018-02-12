@@ -34,7 +34,6 @@
             android:layout_marginLeft="76dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/etv_item_selector"
-            android:gravity="center"
             android:textCursorDrawable="@drawable/etv_cursor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -61,7 +60,7 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/textView2" />
-        <org.angmarch.views.NiceSpinner
+        <com.example.wanjukim.homeworkmonster.utils.EventListenSpinner
             android:id="@+id/spinner_subject"
             android:layout_width="0dp"
             android:layout_height="@dimen/spinner_gap"
@@ -114,7 +113,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent" />
-        <org.angmarch.views.NiceSpinner
+        <com.example.wanjukim.homeworkmonster.utils.EventListenSpinner
             android:id="@+id/spinner_alarm"
             android:layout_width="0dp"
             android:layout_height="@dimen/spinner_gap"
@@ -151,7 +150,6 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/etv_gap"
             android:textCursorDrawable="@drawable/etv_cursor"
-            android:gravity="center"
             android:layout_marginBottom="0dp"
             android:layout_marginLeft="76dp"
             android:layout_marginRight="16dp"

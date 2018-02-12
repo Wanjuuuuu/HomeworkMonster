@@ -1,14 +1,23 @@
 package com.example.wanjukim.homeworkmonster.activities;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.example.wanjukim.homeworkmonster.R;
+import com.example.wanjukim.homeworkmonster.adapters.SubjectArrayAdapter;
 import com.example.wanjukim.homeworkmonster.models.Subject;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.utils.ClearEditText;
+import com.example.wanjukim.homeworkmonster.utils.EventListenSpinner;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -20,18 +29,25 @@ import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by Wanju Kim on 2018-01-08.
  */
 
-public class AddWorkActivity extends BaseActivity {
+public class AddWorkActivity extends BaseActivity implements EventListenSpinner.OnSpinnerEventsListener{
     @BindView(R.id.etv_work)ClearEditText etvWork;
     @BindView(R.id.etv_memo)ClearEditText etvMemo;
-    @BindView(R.id.spinner_subject)NiceSpinner spinnerSubject;
-    @BindView(R.id.spinner_alarm)NiceSpinner spinnerAlarm;
+    @BindView(R.id.spinner_subject)EventListenSpinner spinnerSubject;
+    @BindView(R.id.spinner_alarm)EventListenSpinner spinnerAlarm;
+    @BindColor(R.color.colorAmber)int colorAmber;
+    @BindColor(R.color.colorMediumGray)int colorGray;
 
-    private List<Subject> subjects;
+    private RealmResults<Subject> subjects;
+    private List<String> subjectNames;
+    private String[] alarms={"1 day","2 days","3 days","4 days","5 days","6 days","a week"};
+    private Subject subject;
+    private int alarm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +55,28 @@ public class AddWorkActivity extends BaseActivity {
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
 
-        subjects=new ArrayList<>();
+        Realm realm=Realm.getDefaultInstance();
+
+        subjects=realm.where(Subject.class).findAll(); // TODO : filtering default semester!!
+
+        SpinnerAdapter subjectSpinnerAdapter=new SubjectArrayAdapter(this,android.R.layout.simple_list_item_1,subjects); // working??????
+        spinnerSubject.setAdapter(subjectSpinnerAdapter);
+        spinnerSubject.setSpinnerEventListener(this);
+        spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String itemName=(String)spinnerSubject.getSelectedItem();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                subject=null; // TODO : default subject exists?
+            }
+        });
+
+        SpinnerAdapter alarmSpinnerAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,alarms);
+        spinnerAlarm.setAdapter(alarmSpinnerAdapter);
+        spinnerAlarm.setSpinnerEventListener(this);
 
     }
 
@@ -73,5 +110,15 @@ public class AddWorkActivity extends BaseActivity {
         workItem.setMemo(memo);
 
         realm.commitTransaction();
+    }
+
+    @Override
+    public void onSpinnerOpened(Spinner spinner) {
+        spinner.getBackground().setColorFilter(colorAmber, PorterDuff.Mode.SRC_ATOP);
+    }
+
+    @Override
+    public void onSpinnerClosed(Spinner spinner) {
+        spinner.getBackground().setColorFilter(colorGray, PorterDuff.Mode.SRC_ATOP);
     }
 }

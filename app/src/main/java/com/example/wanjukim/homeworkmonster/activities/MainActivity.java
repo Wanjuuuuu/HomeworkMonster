@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity {
 
         Realm realm = Realm.getDefaultInstance();
 
-        workItems = realm.where(WorkItem.class).equalTo("state",WorkItem.BEFORE).greaterThan("deadline",new Date()).findAll(); //
+        workItems = realm.where(WorkItem.class).equalTo("state",WorkItem.BEFORE).greaterThan("deadline",new Date()).findAll(); // get rid of ended works which are not updated yet
 
         adapter=new WorkItemAdapter(this,workItems);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
