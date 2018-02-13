@@ -6,13 +6,15 @@
     <dimen name="spinner_gap">36dp</dimen>
     <dimen name="etv_gap">36dp</dimen>
     <dimen name="main_list_gap">80dp</dimen>
+    <dimen name="floating_list_gap">96dp</dimen>
     <dimen name="setting_list_gap">60dp</dimen>
+    <dimen name="tv_gap">36dp</dimen>
     <!--line-->
     <dimen name="border_size">1dp</dimen>
     <dimen name="etv_line_size">0.5dp</dimen>
     <!--font size-->
-    <dimen name="option_string_size">25sp</dimen>
+    <dimen name="option_string_size">20sp</dimen>
     <dimen name="large_string_size">18sp</dimen>
     <dimen name="medium_string_size">16sp</dimen>
-    <dimen name="small_string_size">14sp</dimen>
+    <dimen name="small_string_size">12sp</dimen>
 </resources>

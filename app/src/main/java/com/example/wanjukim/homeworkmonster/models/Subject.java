@@ -47,6 +47,7 @@ public class Subject extends RealmObject {
         this.semester = semester;
     }
 
+    /* Necessary : spinner shows this as an item */
     @Override
     public String toString() {
         return getSubject();

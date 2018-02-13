@@ -77,9 +77,8 @@ public class WorkItem extends RealmObject {
         this.deadline = deadline;
     }
 
-    public String getDeadline() {
-        SimpleDateFormat format = new SimpleDateFormat("MM-DD hh:mm"); // 시간으로 변경?
-        return format.format(deadline).toString();
+    public Date getDeadline() {
+        return deadline;
     }
 
     public int getAlarm() {
@@ -122,7 +121,7 @@ public class WorkItem extends RealmObject {
     }
 
     public String getdDay() {
-        long diff = new Date().getTime() - deadline.getTime();
+        long diff = deadline.getTime()-new Date().getTime();
         int dDay = (int) diff / (24 * 60 * 60 * 1000);
         return String.format("D-%02d", dDay);
     } // 임의로 넣어둠

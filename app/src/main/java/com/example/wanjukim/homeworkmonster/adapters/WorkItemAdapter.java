@@ -15,7 +15,9 @@ import com.daimajia.swipe.util.Attributes;
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,10 +89,13 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
         private void bind(WorkItem workItem){
             this.workItem = workItem;
 
+            SimpleDateFormat formatter = new SimpleDateFormat("MMM d h:mm a", Locale.ENGLISH);
+
             work.setText(workItem.getWork());
             subject.setText(workItem.getId()+" ");// 이후 subject로 변경해주기
-//            dDay.setText(workItem.getdDay());
-//            deadline.setText(workItem.getDeadline());
+            dDay.setText(workItem.getdDay());
+            deadline.setText(formatter.format(workItem.getDeadline()));
+
         }
 
         @OnClick(R.id.swipe_option1)
