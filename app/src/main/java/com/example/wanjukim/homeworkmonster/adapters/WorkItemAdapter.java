@@ -63,7 +63,6 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
     }
 
     class WorkItemHolder extends RecyclerView.ViewHolder implements SwipeLayout.SwipeListener {
-
         @BindView(R.id.swipe_layout) SwipeLayout swipeLayout;
         @BindView(R.id.main_work) TextView work;
         @BindView(R.id.main_subject) TextView subject;
