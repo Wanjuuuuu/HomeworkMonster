@@ -8,4 +8,7 @@
     <color name="colorDarkerLime">#98aa00</color>
     <color name="colorAmber">#FFC107</color>
     <color name="colorDarkerAmber">#C79100</color>
+    <color name="colorOption1">#D8D8D8</color>
+    <color name="colorOption2">#ECB7AE</color>
+    <color name="colorOption3">#9EC0F0</color>
 </resources>

@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">HomeworkMonster</string>
+    <!--menu items-->
     <string name="menu_button">menu_button</string>
     <string name="search_button">search_button</string>
+    <!--button or options-->
+    <string name="option_save">save</string>
+    <string name="option_motify">modify</string>
+    <string name="option_giveup">giveup</string>
+    <string name="option_submit">submit</string>
+    <!--etv hint-->
+    <string name="workname">homework name</string>
+    <!--setting menu stuffs-->
+    <string name="subject">Subject</string>
+    <string name="name">Name</string>
+    <string name="deadline">Deadline</string>
+    <string name="alarm">Alarm</string>
+    <string name="memo">Memo</string>
+    <string name="image">Image</string>
 </resources>
