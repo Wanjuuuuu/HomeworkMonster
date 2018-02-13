@@ -122,7 +122,7 @@ public class WorkItem extends RealmObject {
 
     public String getdDay() {
         long diff = deadline.getTime()-new Date().getTime();
-        int dDay = (int) diff / (24 * 60 * 60 * 1000);
+        long dDay = (long) diff / (24 * 60 * 60 * 1000);
         return String.format("D-%02d", dDay);
     } // 임의로 넣어둠
 }

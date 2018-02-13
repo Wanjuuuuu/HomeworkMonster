@@ -51,6 +51,15 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Realm realm = Realm.getDefaultInstance();
+
+        workItems = realm.where(WorkItem.class).equalTo("state",WorkItem.BEFORE).greaterThan("deadline",new Date()).findAll().sort("deadline", Sort.ASCENDING); // get rid of ended works which are not updated yet
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar,menu);
         return true;
