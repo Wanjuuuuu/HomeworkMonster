@@ -1,35 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.wanjukim.homeworkmonster.activities.MainActivity">
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintVertical_bias="1.0">
-    </android.support.v7.widget.RecyclerView>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"></android.support.v7.widget.RecyclerView>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_white_48dp"
-        app:backgroundTint="@color/colorDarkerLime"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
+        app:layout_constraintRight_toRightOf="parent"
+        fab:fab_addButtonColorNormal="@color/colorDarkerLime"
+        fab:fab_addButtonColorPressed="@color/colorDarkerLime"
+        fab:fab_addButtonSize="normal"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_labelsPosition="left">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_add_semester"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fabSize="mini"
+            fab:fab_colorNormal="@color/colorLightGreen"
+            fab:fab_title="Semester" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_add_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fabSize="mini"
+            fab:fab_colorNormal="@color/colorLightGreen"
+            fab:fab_title="Subject" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fabSize="mini"
+            fab:fab_colorNormal="@color/colorLightGreen"
+            fab:fab_title="Assignment" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.constraint.ConstraintLayout>

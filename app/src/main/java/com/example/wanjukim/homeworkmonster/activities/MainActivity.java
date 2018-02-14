@@ -1,20 +1,24 @@
 package com.example.wanjukim.homeworkmonster.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.adapters.WorkItemAdapter;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.Date;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,7 +31,19 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.main_recyclerview)
     RecyclerView recyclerView;
     @BindView(R.id.add_button)
-    FloatingActionButton fabMain;
+    FloatingActionsMenu fabMenu;
+    @BindView(R.id.action_add_item)
+    FloatingActionButton fabItem;
+    @BindView(R.id.action_add_subject)
+    FloatingActionButton fabSubject;
+    @BindView(R.id.action_add_semester)
+    FloatingActionButton fabSemester;
+    @BindDrawable(R.drawable.ic_assignment_white_24dp)
+    Drawable iconAssignment;
+    @BindDrawable(R.drawable.ic_class_white_24dp)
+    Drawable iconSubject;
+    @BindDrawable(R.drawable.ic_date_range_white_24dp)
+    Drawable iconSemester;
 
     private final static String TAG = MainActivity.class.getSimpleName();
     private WorkItemAdapter adapter;
@@ -49,7 +65,9 @@ public class MainActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
-        /* hide fab when view goes down */
+
+        /* hide fab when view goes down  TODO : how to make it hide and show in a smooth way */
+        /* issue : menu doesn't have hide or show method as normal fab */
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -58,13 +76,29 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) { // dy : the amount of vertical scroll
-                if (dy > 0 && fabMain.isShown()) {
-                    fabMain.hide(); // scrolling up -> view goes down
+                if (dy > 0) {
+                    fabMenu.setVisibility(View.GONE); // scrolling up -> view goes down
                 } else {
-                    fabMain.show(); // scrolling down -> view goes up
+                    fabMenu.setVisibility(View.VISIBLE); // scrolling down -> view goes up
                 }
             }
         });
+
+        fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+            @Override
+            public void onMenuExpanded() {
+                // TODO : find out how to disable background stuffs
+            }
+
+            @Override
+            public void onMenuCollapsed() {
+                // TODO
+            }
+        });
+
+        fabItem.setIconDrawable(iconAssignment);
+        fabSubject.setIconDrawable(iconSubject);
+        fabSemester.setIconDrawable(iconSemester);
     }
 
     /* when back to main activity */
@@ -96,9 +130,19 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.add_button)
-    public void onClickAddButton() {
+    @OnClick(R.id.action_add_item)
+    public void onClickAddItem() {
         Intent intentAddWork = new Intent(this, AddWorkActivity.class);
         startActivity(intentAddWork);
+    }
+
+    @OnClick(R.id.action_add_subject)
+    public void onClickAddSubject(){
+
+    }
+
+    @OnClick(R.id.action_add_semester)
+    public void onClickAddSemester(){
+
     }
 }

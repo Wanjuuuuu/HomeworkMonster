@@ -6,9 +6,11 @@
     <color name="colorLightGray">#E0E0E0</color>
     <color name="colorLime">#CCDB38</color>
     <color name="colorDarkerLime">#98aa00</color>
+    <color name="colorLightGreen">#8bc34a</color>
     <color name="colorAmber">#FFC107</color>
     <color name="colorDarkerAmber">#C79100</color>
     <color name="colorOption1">#D8D8D8</color>
     <color name="colorOption2">#ECB7AE</color>
     <color name="colorOption3">#9EC0F0</color>
+    <color name="colorTransparentBlack">#B2000000</color>
 </resources>
