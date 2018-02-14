@@ -36,8 +36,10 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:27.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.jakewharton:butterknife:8.8.1'
+    /* swipeable layout */
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
-    compile 'com.github.arcadefire:nice-spinner:1.3.1'
+    /* FAB menu */
+    compile 'com.getbase:floatingactionbutton:1.10.1'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testCompile 'junit:junit:4.12'

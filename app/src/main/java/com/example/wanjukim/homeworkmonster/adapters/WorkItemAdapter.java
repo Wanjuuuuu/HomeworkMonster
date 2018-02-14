@@ -105,18 +105,22 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
         @OnClick(R.id.swipe_option2)
         public void onClickGiveUp() {
             Realm realm=Realm.getDefaultInstance();
+
             realm.beginTransaction();
             workItem.setState(WorkItem.GIVEUP);
             realm.commitTransaction();
+
             notifyDataSetChanged();
         }
 
         @OnClick(R.id.swipe_option3)
         public void onClickSubmit() {
             Realm realm=Realm.getDefaultInstance();
+
             realm.beginTransaction();
             workItem.setState(WorkItem.SUBMIT);
             realm.commitTransaction();
+
             notifyDataSetChanged();
         }
 

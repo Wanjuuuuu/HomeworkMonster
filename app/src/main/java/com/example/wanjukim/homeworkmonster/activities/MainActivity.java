@@ -24,10 +24,12 @@ import io.realm.Sort;
 
 
 public class MainActivity extends BaseActivity {
-    @BindView(R.id.main_recyclerview) RecyclerView recyclerView;
-    @BindView(R.id.add_button) FloatingActionButton addWorkButton;
+    @BindView(R.id.main_recyclerview)
+    RecyclerView recyclerView;
+    @BindView(R.id.add_button)
+    FloatingActionButton fabMain;
 
-    private final static String TAG=MainActivity.class.getSimpleName();
+    private final static String TAG = MainActivity.class.getSimpleName();
     private WorkItemAdapter adapter;
     private RealmResults<WorkItem> workItems;
 
@@ -39,35 +41,53 @@ public class MainActivity extends BaseActivity {
 
         Realm realm = Realm.getDefaultInstance();
 
-        workItems = realm.where(WorkItem.class).equalTo("state",WorkItem.BEFORE).greaterThan("deadline",new Date()).findAll().sort("deadline", Sort.ASCENDING); // get rid of ended works which are not updated yet
+        workItems = realm.where(WorkItem.class).equalTo("state", WorkItem.BEFORE).greaterThan("deadline", new Date()).findAll().sort("deadline", Sort.ASCENDING); // get rid of ended works which are not updated yet
 
-        adapter=new WorkItemAdapter(this,workItems);
+        adapter = new WorkItemAdapter(this, workItems);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
-//        Log.d(TAG,new Date().toString());
+        /* hide fab when view goes down */
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) { // dy : the amount of vertical scroll
+                if (dy > 0 && fabMain.isShown()) {
+                    fabMain.hide(); // scrolling up -> view goes down
+                } else {
+                    fabMain.show(); // scrolling down -> view goes up
+                }
+            }
+        });
     }
+
+    /* when back to main activity */
 
     @Override
     protected void onResume() {
         super.onResume();
-        Realm realm = Realm.getDefaultInstance();
 
-        workItems = realm.where(WorkItem.class).equalTo("state",WorkItem.BEFORE).greaterThan("deadline",new Date()).findAll().sort("deadline", Sort.ASCENDING); // get rid of ended works which are not updated yet
+        Realm realm = Realm.getDefaultInstance();
+        workItems = realm.where(WorkItem.class).equalTo("state", WorkItem.BEFORE).greaterThan("deadline", new Date()).findAll().sort("deadline", Sort.ASCENDING); // get rid of ended works which are not updated yet
+
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.action_bar,menu);
+        getMenuInflater().inflate(R.menu.action_bar, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.search_button:
                 return true;
             case R.id.menu_button:
@@ -78,7 +98,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.add_button)
     public void onClickAddButton() {
-        Intent intentAddWork=new Intent(this, AddWorkActivity.class);
+        Intent intentAddWork = new Intent(this, AddWorkActivity.class);
         startActivity(intentAddWork);
     }
 }
