@@ -5,10 +5,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
@@ -65,7 +66,6 @@ public class MainActivity extends BaseActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
-
         /* hide fab when view goes down  TODO : how to make it hide and show in a smooth way */
         /* issue : menu doesn't have hide or show method as normal fab */
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -77,9 +77,13 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) { // dy : the amount of vertical scroll
                 if (dy > 0) {
-                    fabMenu.setVisibility(View.GONE); // scrolling up -> view goes down
+                    fabMenu.animate().translationY(fabMenu.getHeight())
+                            .setInterpolator(new AccelerateDecelerateInterpolator())
+                            .setDuration(100);
                 } else {
-                    fabMenu.setVisibility(View.VISIBLE); // scrolling down -> view goes up
+                    fabMenu.animate().translationY(0)
+                            .setInterpolator(new AccelerateDecelerateInterpolator())
+                            .setDuration(100);
                 }
             }
         });
@@ -87,12 +91,23 @@ public class MainActivity extends BaseActivity {
         fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
             @Override
             public void onMenuExpanded() {
-                // TODO : find out how to disable background stuffs
+                recyclerView.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onMenuCollapsed() {
-                // TODO
+                recyclerView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(recyclerView.getVisibility()==View.INVISIBLE){
+                    fabMenu.collapse();
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+                return false;
             }
         });
 
@@ -137,12 +152,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @OnClick(R.id.action_add_subject)
-    public void onClickAddSubject(){
+    public void onClickAddSubject() {
 
     }
 
     @OnClick(R.id.action_add_semester)
-    public void onClickAddSemester(){
+    public void onClickAddSemester() {
 
     }
 }
