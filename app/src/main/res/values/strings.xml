@@ -11,7 +11,9 @@
     <!--etv hint-->
     <string name="workname">homework name</string>
     <!--setting menu stuffs-->
+    <string name="semester">Semester</string>
     <string name="subject">Subject</string>
+    <string name="homework">Homework</string>
     <string name="name">Name</string>
     <string name="deadline">Deadline</string>
     <string name="alarm">Alarm</string>

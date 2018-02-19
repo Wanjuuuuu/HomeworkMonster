@@ -32,6 +32,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindColor;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -61,20 +62,24 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
     int colorGray;
 
     private final static String TAG = AddWorkActivity.class.getSimpleName();
+    private final static String TITLE="New Homework";
+
     private RealmResults<Subject> subjects;
     private String[] alarms = {"1 day", "2 days", "3 days", "4 days", "5 days", "6 days", "a week"};
-    private Subject subject;
-    private int alarm;
-
-    private Date now;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy (E)", Locale.ENGLISH);
     private SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
+    private Subject subject;
+    private int alarm;
+    private Date now;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initActionBar(TITLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+
 
         Realm realm = Realm.getDefaultInstance();
 
@@ -181,11 +186,16 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.setting_save) {
-            addWorkItem();
-            finish();
-            return true;
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.setting_save:
+                addWorkItem();
+                finish();
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

@@ -40,6 +40,8 @@ dependencies {
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     /* FAB menu */
     compile 'com.getbase:floatingactionbutton:1.10.1'
+    /* make snackbar on the top with smooth animation */
+    compile 'com.androidadvance:topsnackbar:1.1.1'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testCompile 'junit:junit:4.12'
