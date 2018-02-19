@@ -82,7 +82,6 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
         @BindView(R.id.bottom_swipe_layout) LinearLayout bottomLayout;
         @BindView(R.id.swipe_option1) ConstraintLayout option1;
         @BindView(R.id.swipe_option2) ConstraintLayout option2;
-        @BindView(R.id.swipe_option3) ConstraintLayout option3;
 
         private WorkItem workItem;
 
@@ -106,12 +105,12 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             deadline.setText(formatter.format(workItem.getDeadline()));
         }
 
-        @OnClick(R.id.swipe_option1)
+        @OnClick(R.id.surface_swipe_layout)
         public void onClickModify() {
             // TODO : make new intent activity
         }
 
-        @OnClick(R.id.swipe_option2)
+        @OnClick(R.id.swipe_option1)
         public void onClickGiveUp() {
             Realm realm=Realm.getDefaultInstance();
 
@@ -122,7 +121,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             notifyDataSetChanged();
         }
 
-        @OnClick(R.id.swipe_option3)
+        @OnClick(R.id.swipe_option2)
         public void onClickSubmit() {
             Realm realm=Realm.getDefaultInstance();
 
