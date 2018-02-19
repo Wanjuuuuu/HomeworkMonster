@@ -2,6 +2,7 @@ package com.example.wanjukim.homeworkmonster.activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -56,6 +58,8 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
     TextView tvDate;
     @BindView(R.id.tv_time)
     TextView tvTime;
+    @BindView(R.id.iv_image)
+    ImageView ivImage;
     @BindColor(R.color.colorAmber)
     int colorAmber;
     @BindColor(R.color.colorMediumGray)
@@ -176,6 +180,12 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
         }, hour, min, false);
 
         timePickerDialog.show();
+    }
+
+    @OnClick(R.id.iv_image)
+    public void onClickImage(){
+        Intent intent=new Intent(this,GetImageActivity.class);
+        startActivity(intent);
     }
 
     @Override

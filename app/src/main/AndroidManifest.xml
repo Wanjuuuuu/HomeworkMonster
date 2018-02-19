@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.wanjukim.homeworkmonster">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" android:protectionLevel="signature"/>
+
     <application
         android:allowBackup="true"
         android:name=".HMApplication"
@@ -16,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.AddWorkActivity"/>
+        <activity android:name=".activities.GetImageActivity"/>
     </application>
 
 </manifest>

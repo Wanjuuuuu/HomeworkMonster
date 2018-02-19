@@ -6,7 +6,7 @@ android {
     buildToolsVersion "27.0.1"
     defaultConfig {
         applicationId "com.example.wanjukim.homeworkmonster"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -35,14 +35,18 @@ dependencies {
     compile 'com.android.support:design:27.0.0'
     compile 'com.android.support:recyclerview-v7:27.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    /* butterknife */
     compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     /* swipeable layout */
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     /* FAB menu */
     compile 'com.getbase:floatingactionbutton:1.10.1'
     /* make snackbar on the top with smooth animation */
     compile 'com.androidadvance:topsnackbar:1.1.1'
+    /* get images in an easy way */
+    compile 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testCompile 'junit:junit:4.12'
 }

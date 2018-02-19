@@ -5,10 +5,12 @@
     <!--gap-->
     <dimen name="spinner_gap">36dp</dimen>
     <dimen name="etv_gap">36dp</dimen>
+    <dimen name="min_iv_gap">36dp</dimen>
     <dimen name="main_list_gap">80dp</dimen>
     <dimen name="floating_list_gap">96dp</dimen>
     <dimen name="setting_list_gap">60dp</dimen>
     <dimen name="tv_gap">36dp</dimen>
+    <dimen name="iv_gap">140dp</dimen>
     <!--line-->
     <dimen name="border_size">1dp</dimen>
     <dimen name="etv_line_size">0.5dp</dimen>

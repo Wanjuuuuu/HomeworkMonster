@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity {
         workItems = realm.where(WorkItem.class).equalTo("state", WorkItem.BEFORE).greaterThan("deadline", new Date()).findAll().sort("deadline", Sort.ASCENDING); // get rid of ended works which are not updated yet
 
         adapter = new WorkItemAdapter(this, workItems);
-        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
