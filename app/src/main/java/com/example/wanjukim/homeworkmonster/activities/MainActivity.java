@@ -61,7 +61,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initActionBar(TITLE);
+        View view=getLayoutInflater().inflate(R.layout.main_action_bar,null);
+        initActionBar(view,TITLE);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -143,8 +144,6 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search_button:
-                return true;
-            case R.id.menu_button:
                 return true;
         }
         return super.onOptionsItemSelected(item);

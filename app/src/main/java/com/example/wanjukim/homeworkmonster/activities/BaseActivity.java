@@ -15,11 +15,10 @@ import com.example.wanjukim.homeworkmonster.R;
  */
 
 public class BaseActivity extends AppCompatActivity {
-    public void initActionBar(String title){
+    public void initActionBar(View view,String title){
         ActionBar actionBar=getSupportActionBar();
-        View view=getLayoutInflater().inflate(R.layout.action_bar,null);
         ActionBar.LayoutParams params=new ActionBar.LayoutParams(
-                ActionBar.LayoutParams.WRAP_CONTENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
                 ActionBar.LayoutParams.MATCH_PARENT,
                 Gravity.CENTER);
         TextView textView=(TextView)view.findViewById(R.id.action_bar_title);

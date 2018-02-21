@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,11 +89,11 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initActionBar(TITLE);
+        View view=getLayoutInflater().inflate(R.layout.action_bar,null);
+        initActionBar(view,TITLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
-
 
         Realm realm = Realm.getDefaultInstance();
 

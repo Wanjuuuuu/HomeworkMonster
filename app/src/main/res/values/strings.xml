@@ -10,6 +10,7 @@
     <string name="option_submit">submit</string>
     <!--etv hint-->
     <string name="workname">homework name</string>
+    <string name="details">details</string>
     <!--setting menu stuffs-->
     <string name="semester">Semester</string>
     <string name="subject">Subject</string>

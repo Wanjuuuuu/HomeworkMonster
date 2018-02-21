@@ -28,6 +28,7 @@
 
         <com.example.wanjukim.homeworkmonster.utils.ClearEditText
             android:id="@+id/etv_work"
+            android:hint="@string/workname"
             android:layout_width="0dp"
             android:layout_height="@dimen/etv_gap"
             android:layout_marginBottom="0dp"
@@ -152,7 +153,8 @@
     </android.support.constraint.ConstraintLayout>
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="@dimen/setting_list_gap"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/setting_list_gap"
         android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="0dp"
@@ -173,8 +175,14 @@
 
         <com.example.wanjukim.homeworkmonster.utils.ClearEditText
             android:id="@+id/etv_memo"
+            android:hint="@string/details"
+            android:autoLink="all"
+            android:inputType="textMultiLine|textCapSentences"
+            android:lines="5"
+            android:minLines="1"
             android:layout_width="0dp"
-            android:layout_height="@dimen/etv_gap"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/etv_gap"
             android:textCursorDrawable="@drawable/etv_cursor"
             android:layout_marginBottom="0dp"
             android:layout_marginLeft="96dp"
