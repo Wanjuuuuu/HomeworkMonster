@@ -1,6 +1,5 @@
 package com.example.wanjukim.homeworkmonster.models;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -20,6 +19,7 @@ public class WorkItem extends RealmObject {
     private int alarm;
     private String memo;
     private int state;
+    private Image image;
 
     public static final int BEFORE = 0;
     public static final int SUBMIT = 1;
@@ -110,6 +110,14 @@ public class WorkItem extends RealmObject {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public boolean getSwipeState() {

@@ -1,13 +1,31 @@
 package com.example.wanjukim.homeworkmonster.models;
 
+import java.io.Serializable;
+
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Wanju Kim on 2018-02-20.
  */
 
-public class Image {
+public class Image extends RealmObject implements Serializable{
+    @PrimaryKey
+    private int id;
     private int bucketId;
     private String path;
+
+    @Ignore
     private boolean flag=false;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getBucketId() {
         return bucketId;

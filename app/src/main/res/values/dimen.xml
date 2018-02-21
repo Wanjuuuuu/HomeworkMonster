@@ -6,6 +6,7 @@
     <dimen name="spinner_gap">36dp</dimen>
     <dimen name="etv_gap">36dp</dimen>
     <dimen name="min_iv_gap">36dp</dimen>
+    <dimen name="max_iv_gap">80dp</dimen>
     <dimen name="main_list_gap">80dp</dimen>
     <dimen name="floating_list_gap">96dp</dimen>
     <dimen name="setting_list_gap">60dp</dimen>

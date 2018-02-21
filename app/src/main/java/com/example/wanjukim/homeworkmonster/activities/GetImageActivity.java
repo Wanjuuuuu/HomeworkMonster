@@ -1,20 +1,20 @@
 package com.example.wanjukim.homeworkmonster.activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.adapters.ImageAdapter;
-import com.example.wanjukim.homeworkmonster.adapters.WorkItemAdapter;
 import com.example.wanjukim.homeworkmonster.models.Image;
 import com.example.wanjukim.homeworkmonster.utils.GalleryScanner;
 
@@ -32,11 +32,13 @@ public class GetImageActivity extends BaseActivity implements ImageAdapter.Image
     RecyclerView recyclerView;
 
     private final static String TITLE="Get Image";
+    private final static String MESSAGE="Please choose the image!";
+    public final static String EXTRA="IMAGE";
     private final static int STORAGE_PERMISSION_REQUEST=2018;
     private final static String TAG=GetImageActivity.class.getSimpleName();
 
     private ImageAdapter adapter;
-    private String path=null;
+    private Image image=null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,11 +69,21 @@ public class GetImageActivity extends BaseActivity implements ImageAdapter.Image
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
+                setResult(RESULT_CANCELED);
                 finish();
                 return true;
             case R.id.setting_save:
-                finish();
-                return true;
+                if(image==null){
+                    Snackbar snackbar=Snackbar.make(findViewById(android.R.id.content),MESSAGE, Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                } else {
+                    Intent intent=new Intent();
+                    intent.putExtra(EXTRA,image);
+                    setResult(RESULT_OK,intent);
+                    finish();
+                    return true;
+                }
+                return false;
         }
 
         return super.onOptionsItemSelected(item);
@@ -105,6 +117,6 @@ public class GetImageActivity extends BaseActivity implements ImageAdapter.Image
 
     @Override
     public void onClickImage(Image image) {
-        path=image.getPath();
+        this.image=image;
     }
 }

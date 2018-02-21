@@ -3,10 +3,12 @@ package com.example.wanjukim.homeworkmonster.activities;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,21 +22,24 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.wanjukim.homeworkmonster.R;
+import com.example.wanjukim.homeworkmonster.models.Image;
 import com.example.wanjukim.homeworkmonster.models.Subject;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.utils.ClearEditText;
 import com.example.wanjukim.homeworkmonster.utils.EventListenSpinner;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindColor;
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,6 +63,8 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
     TextView tvDate;
     @BindView(R.id.tv_time)
     TextView tvTime;
+    @BindView(R.id.get_image_layout)
+    ConstraintLayout imageLayout;
     @BindView(R.id.iv_image)
     ImageView ivImage;
     @BindColor(R.color.colorAmber)
@@ -67,6 +74,7 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
 
     private final static String TAG = AddWorkActivity.class.getSimpleName();
     private final static String TITLE="New Homework";
+    public final static int RESULT=1994;
 
     private RealmResults<Subject> subjects;
     private String[] alarms = {"1 day", "2 days", "3 days", "4 days", "5 days", "6 days", "a week"};
@@ -75,6 +83,7 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
     private Subject subject;
     private int alarm;
     private Date now;
+    private Image image=null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -182,10 +191,22 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
         timePickerDialog.show();
     }
 
-    @OnClick(R.id.iv_image)
+    @OnClick(R.id.get_image_layout)
     public void onClickImage(){
         Intent intent=new Intent(this,GetImageActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,RESULT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==RESULT){
+            if(resultCode==RESULT_OK) {
+                image = (Image) data.getSerializableExtra(GetImageActivity.EXTRA);
+                Glide.with(this).load(image.getPath()).into(ivImage);
+            }
+        }
     }
 
     @Override
@@ -224,7 +245,7 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
         workItem.setSubject(subject);
         workItem.setAlarm(alarm);
         workItem.setDeadline(now);
-        // image gallerywidget 참고
+        workItem.setImage(realm.copyToRealm(image));
 
         realm.commitTransaction();
     }

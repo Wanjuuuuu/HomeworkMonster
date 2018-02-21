@@ -1,5 +1,6 @@
 package com.example.wanjukim.homeworkmonster.realm;
 
+import com.example.wanjukim.homeworkmonster.models.Image;
 import com.example.wanjukim.homeworkmonster.models.Semester;
 import com.example.wanjukim.homeworkmonster.models.Subject;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
@@ -37,6 +38,16 @@ public class DBMigration implements RealmMigration {
             objectSchema.addPrimaryKey("id");
             objectSchema=schema.get(Subject.class.getSimpleName());
             objectSchema.addPrimaryKey("id");
+
+            oldVersion++;
+        }
+
+        if(oldVersion==2){
+           RealmObjectSchema objectSchema= schema.create(Image.class.getSimpleName()).addField("id",int.class)
+                    .addField("bucketId",int.class).addField("path",String.class).addPrimaryKey("id");
+            schema.get(WorkItem.class.getSimpleName()).addRealmObjectField("image",objectSchema);
+
+            oldVersion++;
         }
     }
 
