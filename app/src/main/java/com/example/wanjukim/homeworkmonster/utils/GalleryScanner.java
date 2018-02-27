@@ -8,6 +8,7 @@ import com.example.wanjukim.homeworkmonster.models.Image;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Wanju Kim on 2018-02-20.
@@ -47,6 +48,7 @@ public class GalleryScanner {
             String path=cursor.getString(pathColumn);
 
             Image photo=new Image();
+//            photo.setId(UUID.randomUUID().toString);
             photo.setBucketId(bucketId);
             photo.setPath(path);
 

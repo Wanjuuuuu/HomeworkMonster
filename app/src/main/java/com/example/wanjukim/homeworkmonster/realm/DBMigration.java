@@ -49,6 +49,20 @@ public class DBMigration implements RealmMigration {
 
             oldVersion++;
         }
+
+        if(oldVersion==3){
+            RealmObjectSchema objectSchema=schema.get(Image.class.getSimpleName());
+            migrateIDField(objectSchema);
+
+            oldVersion++;
+        }
+
+        if(oldVersion==4){
+            RealmObjectSchema objectSchema=schema.get(Image.class.getSimpleName());
+            objectSchema.addPrimaryKey("id");
+
+            oldVersion++;
+        }
     }
 
     private void migrateIDField(RealmObjectSchema objectSchema){

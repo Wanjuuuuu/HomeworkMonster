@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".activities.AddWorkActivity"/>
         <activity android:name=".activities.GetImageActivity"/>
+        <activity android:name=".activities.ModifyWorkActivity"/>
     </application>
 
 </manifest>

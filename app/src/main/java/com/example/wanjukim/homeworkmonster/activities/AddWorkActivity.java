@@ -246,8 +246,10 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
         workItem.setSubject(subject);
         workItem.setAlarm(alarm);
         workItem.setDeadline(now);
-        workItem.setImage(realm.copyToRealm(image));
 
+        Image imageItem=realm.copyToRealm(image);
+        workItem.setImage(imageItem);
+        
         realm.commitTransaction();
     }
 

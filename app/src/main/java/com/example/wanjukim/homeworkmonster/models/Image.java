@@ -12,18 +12,18 @@ import io.realm.annotations.PrimaryKey;
 
 public class Image extends RealmObject implements Serializable{
     @PrimaryKey
-    private int id;
+    private String id;
     private int bucketId;
     private String path;
 
     @Ignore
     private boolean flag=false;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
