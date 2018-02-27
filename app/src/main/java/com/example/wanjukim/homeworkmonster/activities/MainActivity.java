@@ -5,15 +5,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 
-import com.daimajia.swipe.SwipeLayout;
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.adapters.WorkItemAdapter;
@@ -23,7 +20,6 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import java.util.Date;
 
 import butterknife.BindDrawable;
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -151,7 +147,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.action_add_item)
     public void onClickAddItem() {
-        Intent intentAddWork = new Intent(this, AddWorkActivity.class);
+        Intent intentAddWork = new Intent(this, MakeWorkActivity.class);
         startActivity(intentAddWork);
     }
 

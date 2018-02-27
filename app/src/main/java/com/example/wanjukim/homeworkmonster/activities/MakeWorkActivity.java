@@ -3,13 +3,10 @@ package com.example.wanjukim.homeworkmonster.activities;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,20 +21,16 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.models.Image;
 import com.example.wanjukim.homeworkmonster.models.Subject;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.utils.ClearEditText;
 import com.example.wanjukim.homeworkmonster.utils.EventListenSpinner;
+import com.example.wanjukim.homeworkmonster.utils.Utils;
 
-import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindColor;
@@ -51,7 +44,7 @@ import io.realm.RealmResults;
  * Created by Wanju Kim on 2018-01-08.
  */
 
-public class AddWorkActivity extends BaseActivity implements EventListenSpinner.OnSpinnerEventsListener {
+public class MakeWorkActivity extends BaseActivity implements EventListenSpinner.OnSpinnerEventsListener {
     @BindView(R.id.etv_work)
     ClearEditText etvWork;
     @BindView(R.id.etv_memo)
@@ -73,17 +66,16 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
     @BindColor(R.color.colorMediumGray)
     int colorGray;
 
-    private final static String TAG = AddWorkActivity.class.getSimpleName();
+    private final static String TAG = MakeWorkActivity.class.getSimpleName();
     private final static String TITLE="New Homework";
     public final static int RESULT=1994;
 
+    private String workId=null;
+    private WorkItem workItem;
     private RealmResults<Subject> subjects;
-    private String[] alarms = {"1 day", "2 days", "3 days", "4 days", "5 days", "6 days", "a week"};
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy (E)", Locale.ENGLISH);
-    private SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
     private Subject subject;
     private int alarm;
-    private Date now;
+    private Date date;
     private Image image=null;
 
     @Override
@@ -102,52 +94,73 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
         SpinnerAdapter subjectSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, subjects);
         spinnerSubject.setAdapter(subjectSpinnerAdapter);
         spinnerSubject.setSpinnerEventListener(this);
+
+        final SpinnerAdapter alarmSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Utils.alarms);
+        spinnerAlarm.setAdapter(alarmSpinnerAdapter);
+        spinnerAlarm.setSpinnerEventListener(this);
+
+        /* Branch : Add or Modify workItem */
+
+        if(getIntent().getExtras()==null) { // workId==null
+            date = new Date();
+            Log.d(TAG,"if extras is null");
+
+            int dif = (int) (date.getTime() % (60 * 60 * 1000)) / (60 * 1000);
+            if (dif != 0) {
+                date.setTime(date.getTime() + (60 - dif) * 60 * 1000); // one hour more than date
+            }
+            tvDate.setText(Utils.dateFormat.format(date));
+            tvTime.setText(Utils.timeFormat.format(date));
+        } else {
+            workId=getIntent().getExtras().getString(GetWorkActivity.EXTRA);
+
+            workItem=realm.where(WorkItem.class).equalTo("id",workId).findFirst();
+
+            etvWork.setHint(workItem.getWork());
+            etvMemo.setHint(workItem.getMemo());
+            date=workItem.getDeadline();
+            tvDate.setText(Utils.dateFormat.format(date));
+            tvTime.setText(Utils.timeFormat.format(date));
+            image=workItem.getImage();
+            if(image!=null) {
+                Glide.with(this).load(image.getPath()).into(ivImage);
+            }
+
+            spinnerSubject.setSelection(subjects.indexOf(workItem.getSubject()));
+            spinnerAlarm.setSelection(workItem.getAlarm()-1);
+
+        }
+
         spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 subject = (Subject) spinnerSubject.getSelectedItem();
-                Log.d(TAG, subject.getSubject());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 subject = (Subject) spinnerSubject.getSelectedItem(); // TODO : default subject exists? null???
-                Log.d(TAG, subject.getSubject());
             }
         });
 
-        final SpinnerAdapter alarmSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, alarms);
-        spinnerAlarm.setAdapter(alarmSpinnerAdapter);
-        spinnerAlarm.setSpinnerEventListener(this);
         spinnerAlarm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 alarm = position + 1;
-//                Log.d(TAG,String.valueOf(alarm));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 alarm = spinnerAlarm.getSelectedItemPosition();
-//                Log.d(TAG,String.valueOf(alarm));
             }
         });
 
-        now = new Date();
-
-
-        int dif = (int) (now.getTime() % (60 * 60 * 1000)) / (60 * 1000);
-        if (dif != 0) {
-            now.setTime(now.getTime() + (60 - dif) * 60 * 1000); // one hour more than now
-        }
-        tvDate.setText(dateFormat.format(now));
-        tvTime.setText(timeFormat.format(now));
     }
 
     @OnClick(R.id.tv_date)
     public void onClickDate() {
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(now);
+        calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -156,9 +169,9 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 calendar.set(year, month, dayOfMonth);
-                now = calendar.getTime();
-                tvDate.setText(dateFormat.format(now)); //
-                Log.d(TAG, " time : " + timeFormat.format(now));
+                date = calendar.getTime();
+                tvDate.setText(Utils.dateFormat.format(date)); //
+                Log.d(TAG, " time : " + Utils.timeFormat.format(date));
             }
         }, year, month, day);
 
@@ -172,7 +185,7 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
     @OnClick(R.id.tv_time)
     public void onClickTime() {
         final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(now);
+        calendar.setTime(date);
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -183,9 +196,9 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(year,month,day, hourOfDay, minute);
-                now = calendar.getTime();
-                tvTime.setText(timeFormat.format(now)); //
-                Log.d(TAG, " time : " + dateFormat.format(now));
+                date = calendar.getTime();
+                tvTime.setText(Utils.timeFormat.format(date)); //
+                Log.d(TAG, " time : " + Utils.dateFormat.format(date));
             }
         }, hour, min, false);
 
@@ -223,7 +236,11 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
                 finish();
                 return true;
             case R.id.setting_save:
-                addWorkItem();
+                if(workId==null) {
+                    addWorkItem();
+                } else {
+                    modifyWorkItem();
+                }
                 finish();
                 return true;
         }
@@ -240,16 +257,51 @@ public class AddWorkActivity extends BaseActivity implements EventListenSpinner.
 
         realm.beginTransaction();
 
-        WorkItem workItem = realm.createObject(WorkItem.class, UUID.randomUUID().toString());
+        WorkItem work = realm.createObject(WorkItem.class, UUID.randomUUID().toString());
+        work.setWork(workname);
+        work.setMemo(memo);
+        work.setSubject(subject);
+        work.setAlarm(alarm);
+        work.setDeadline(date);
+
+        if(image==null) {
+            work.setImage(null);
+        } else {
+            Image imageItem = realm.copyToRealm(image);
+            work.setImage(imageItem);
+        }
+
+        realm.commitTransaction();
+    }
+
+    private void modifyWorkItem(){
+        String workname = etvWork.getText().toString();
+        String memo = etvMemo.getText().toString();
+
+        if(workname.equals("")){
+            workname=workItem.getWork();
+        }
+        if(memo.equals("")){
+            memo=workItem.getMemo();
+        }
+
+        Realm realm = Realm.getDefaultInstance(); // opens default db
+
+        realm.beginTransaction();
+
         workItem.setWork(workname);
         workItem.setMemo(memo);
         workItem.setSubject(subject);
         workItem.setAlarm(alarm);
-        workItem.setDeadline(now);
+        workItem.setDeadline(date);
 
-        Image imageItem=realm.copyToRealm(image);
-        workItem.setImage(imageItem);
-        
+        if(image==null) {
+            workItem.setImage(null);
+        } else {
+            Image imageItem = realm.copyToRealm(image);
+            workItem.setImage(imageItem);
+        }
+
         realm.commitTransaction();
     }
 

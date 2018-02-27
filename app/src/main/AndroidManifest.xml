@@ -18,9 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AddWorkActivity"/>
+        <activity android:name=".activities.MakeWorkActivity"/>
         <activity android:name=".activities.GetImageActivity"/>
-        <activity android:name=".activities.ModifyWorkActivity"/>
+        <activity android:name=".activities.GetWorkActivity"/>
     </application>
 
 </manifest>

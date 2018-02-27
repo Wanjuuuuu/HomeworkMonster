@@ -1,6 +1,9 @@
 package com.example.wanjukim.homeworkmonster.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,10 +13,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidadvance.topsnackbar.TSnackbar;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
 import com.example.wanjukim.homeworkmonster.R;
+import com.example.wanjukim.homeworkmonster.activities.GetWorkActivity;
 import com.example.wanjukim.homeworkmonster.activities.MainActivity;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 
@@ -31,6 +36,8 @@ import io.realm.Realm;
  */
 
 public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkItemHolder> {
+    public final static String EXTRA="WORKID";
+
     private Context context;
     private LayoutInflater inflater;
     private List<WorkItem> workItems;
@@ -107,7 +114,9 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
 
         @OnClick(R.id.surface_swipe_layout)
         public void onClickModify() {
-            // TODO : make new intent activity
+            Intent intent=new Intent(context, GetWorkActivity.class);
+            intent.putExtra(EXTRA,workItem.getId());
+            context.startActivity(intent);
         }
 
         @OnClick(R.id.swipe_option1)
@@ -119,6 +128,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             realm.commitTransaction();
 
             notifyDataSetChanged();
+            // TODO : snackbar
         }
 
         @OnClick(R.id.swipe_option2)
@@ -130,6 +140,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             realm.commitTransaction();
 
             notifyDataSetChanged();
+            // TODO : snackbar
         }
 
         @Override

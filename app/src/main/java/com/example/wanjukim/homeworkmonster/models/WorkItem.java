@@ -1,5 +1,6 @@
 package com.example.wanjukim.homeworkmonster.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -10,7 +11,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by Wanju Kim on 2018-01-07.
  */
 
-public class WorkItem extends RealmObject {
+public class WorkItem extends RealmObject implements Serializable {
     @PrimaryKey
     private String id;
     private String work;

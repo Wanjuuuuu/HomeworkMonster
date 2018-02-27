@@ -48,7 +48,7 @@ public class GalleryScanner {
             String path=cursor.getString(pathColumn);
 
             Image photo=new Image();
-//            photo.setId(UUID.randomUUID().toString);
+            photo.setId(UUID.randomUUID().toString());
             photo.setBucketId(bucketId);
             photo.setPath(path);
 

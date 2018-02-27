@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".activities.MakeWorkActivity">
     <item
-        android:id="@+id/setting_save"
-        android:title="@string/option_save"
+        android:id="@+id/setting_modify"
+        android:title="@string/option_motify"
         app:showAsAction="always" />
 </menu>
