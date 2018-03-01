@@ -1,8 +1,15 @@
 package com.example.wanjukim.homeworkmonster.utils;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import com.androidadvance.topsnackbar.TSnackbar;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -20,4 +27,18 @@ public class Utils {
         Log.d(TAG, "test is called");
     }
 
+    public static void showTopSnackBar(Activity activity,String message){
+        View rootView=activity.getWindow().getDecorView().findViewById(android.R.id.content);
+        TSnackbar topSnackbar=TSnackbar.make(rootView,message,TSnackbar.LENGTH_SHORT);
+        View snackView=topSnackbar.getView();
+        TextView snackText=snackView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+        snackText.setTextColor(Color.WHITE);
+        topSnackbar.show();
+    }
+
+    public static long getDday(Date deadline){
+        long diff = deadline.getTime()-new Date().getTime();
+        long dDay = (long) diff / (24 * 60 * 60 * 1000);
+        return dDay;
+    }
 }

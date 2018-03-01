@@ -128,10 +128,4 @@ public class WorkItem extends RealmObject implements Serializable {
     public void setSwipeState(boolean flag) {
         swipeState = flag;
     }
-
-    public String getdDay() {
-        long diff = deadline.getTime()-new Date().getTime();
-        long dDay = (long) diff / (24 * 60 * 60 * 1000);
-        return String.format("D-%02d", dDay);
-    } // 임의로 넣어둠
 }

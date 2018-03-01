@@ -1,5 +1,6 @@
 package com.example.wanjukim.homeworkmonster.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,6 +22,7 @@ import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.activities.GetWorkActivity;
 import com.example.wanjukim.homeworkmonster.activities.MainActivity;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
+import com.example.wanjukim.homeworkmonster.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -108,7 +110,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
 
             work.setText(workItem.getWork());
             subject.setText(workItem.getId()+" ");// 이후 subject로 변경해주기
-            dDay.setText(workItem.getdDay());
+            dDay.setText(String.format("D-%02d",Utils.getDday(workItem.getDeadline())));
             deadline.setText(formatter.format(workItem.getDeadline()));
         }
 
@@ -128,7 +130,8 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             realm.commitTransaction();
 
             notifyDataSetChanged();
-            // TODO : snackbar
+
+            Utils.showTopSnackBar((Activity)context,"Given up "+ "\""+workItem.getWork()+ "\"");
         }
 
         @OnClick(R.id.swipe_option2)
@@ -140,7 +143,8 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             realm.commitTransaction();
 
             notifyDataSetChanged();
-            // TODO : snackbar
+
+            Utils.showTopSnackBar((Activity)context,"Submitted "+ "\""+workItem.getWork()+ "\"");
         }
 
         @Override

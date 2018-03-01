@@ -1,6 +1,7 @@
 package com.example.wanjukim.homeworkmonster.activities;
 
 import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -29,10 +30,11 @@ public class BaseActivity extends AppCompatActivity {
     };
 
     public void showSnackbar(String message){
-        TSnackbar topSnackbar=TSnackbar.make(findViewById(android.R.id.content),message,TSnackbar.LENGTH_SHORT);
-        View snackView=topSnackbar.getView();
-        TextView snackText=snackView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
-        snackText.setTextColor(Color.WHITE);
-        topSnackbar.show();
+//        TSnackbar topSnackbar=TSnackbar.make(findViewById(android.R.id.content),message,TSnackbar.LENGTH_SHORT);
+//        View snackView=topSnackbar.getView();
+//        TextView snackText=snackView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+//        snackText.setTextColor(Color.WHITE);
+//        topSnackbar.show();
+        Snackbar.make(findViewById(android.R.id.content),message,Snackbar.LENGTH_SHORT).show();
     }
 }

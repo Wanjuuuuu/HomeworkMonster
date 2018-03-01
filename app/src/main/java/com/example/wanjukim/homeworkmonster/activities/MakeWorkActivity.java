@@ -1,5 +1,6 @@
 package com.example.wanjukim.homeworkmonster.activities;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -147,6 +148,9 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 alarm = position + 1;
+                if(alarm!=1 && alarm>Utils.getDday(date)){
+                    showSnackbar("Deadline is earlier than alarm!");
+                }
             }
 
             @Override
@@ -154,7 +158,6 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
                 alarm = spinnerAlarm.getSelectedItemPosition();
             }
         });
-
     }
 
     @OnClick(R.id.tv_date)
