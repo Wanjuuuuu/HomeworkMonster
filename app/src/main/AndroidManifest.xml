@@ -21,6 +21,8 @@
         <activity android:name=".activities.MakeWorkActivity"/>
         <activity android:name=".activities.GetImageActivity"/>
         <activity android:name=".activities.GetWorkActivity"/>
+        <activity android:name=".activities.MakeSubjectActivity"/>
+        <activity android:name=".activities.MakeSemesterActivity"/>
     </application>
 
 </manifest>

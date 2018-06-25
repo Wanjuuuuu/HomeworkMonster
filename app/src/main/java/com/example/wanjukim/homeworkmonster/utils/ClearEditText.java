@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -77,6 +78,7 @@ public class ClearEditText extends AppCompatEditText implements View.OnTouchList
     @Override
     public void onFocusChange(View view, boolean b) {
         if(b){
+            setHint("");
             setClearBtnVisible(getText().length()>0);
         } else {
             setClearBtnVisible(false);

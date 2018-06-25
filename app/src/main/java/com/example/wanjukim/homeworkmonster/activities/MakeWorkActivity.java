@@ -177,10 +177,8 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
                 Log.d(TAG, " time : " + Utils.timeFormat.format(date));
             }
         }, year, month, day);
-
-        Calendar limitCal = Calendar.getInstance();
-        limitCal.set(year, month, day);
-        datePickerDialog.getDatePicker().setMinDate(limitCal.getTimeInMillis());
+        
+        datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
 
         datePickerDialog.show();
     }
