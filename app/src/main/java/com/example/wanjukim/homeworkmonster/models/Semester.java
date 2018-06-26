@@ -14,15 +14,17 @@ public class Semester extends RealmObject {
     private String id;
     private Date startDate;
     private Date endDate;
+    private boolean defaultFlag;
 
-    public Semester(){
+    public Semester() {
 
     }
 
-    public Semester(String  id, Date startDate, Date endDate) {
+    public Semester(String id, Date startDate, Date endDate) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.defaultFlag = false;
     }
 
     public String getId() {
@@ -37,6 +39,10 @@ public class Semester extends RealmObject {
         return endDate;
     }
 
+    public boolean isDefaultFlag() {
+        return defaultFlag;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -47,5 +53,9 @@ public class Semester extends RealmObject {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public void setDefaultFlag(boolean defaultFlag) {
+        this.defaultFlag = defaultFlag;
     }
 }

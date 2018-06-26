@@ -18,62 +18,69 @@ import io.realm.RealmSchema;
 public class DBMigration implements RealmMigration {
     @Override
     public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
-        RealmSchema schema=realm.getSchema();
+        RealmSchema schema = realm.getSchema();
 
-        if(oldVersion==0){
-            RealmObjectSchema objectSchema=schema.get(WorkItem.class.getSimpleName());
+        if (oldVersion == 0) {
+            RealmObjectSchema objectSchema = schema.get(WorkItem.class.getSimpleName());
             migrateIDField(objectSchema);
-            objectSchema=schema.get(Semester.class.getSimpleName());
+            objectSchema = schema.get(Semester.class.getSimpleName());
             migrateIDField(objectSchema);
-            objectSchema=schema.get(Subject.class.getSimpleName());
-            migrateIDField(objectSchema);
-
-            oldVersion++;
-        }
-
-        if (oldVersion==1){
-            RealmObjectSchema objectSchema=schema.get(WorkItem.class.getSimpleName());
-            objectSchema.addPrimaryKey("id");
-            objectSchema=schema.get(Semester.class.getSimpleName());
-            objectSchema.addPrimaryKey("id");
-            objectSchema=schema.get(Subject.class.getSimpleName());
-            objectSchema.addPrimaryKey("id");
-
-            oldVersion++;
-        }
-
-        if(oldVersion==2){
-           RealmObjectSchema objectSchema= schema.create(Image.class.getSimpleName()).addField("id",int.class)
-                    .addField("bucketId",int.class).addField("path",String.class).addPrimaryKey("id");
-            schema.get(WorkItem.class.getSimpleName()).addRealmObjectField("image",objectSchema);
-
-            oldVersion++;
-        }
-
-        if(oldVersion==3){
-            RealmObjectSchema objectSchema=schema.get(Image.class.getSimpleName());
+            objectSchema = schema.get(Subject.class.getSimpleName());
             migrateIDField(objectSchema);
 
             oldVersion++;
         }
 
-        if(oldVersion==4){
-            RealmObjectSchema objectSchema=schema.get(Image.class.getSimpleName());
+        if (oldVersion == 1) {
+            RealmObjectSchema objectSchema = schema.get(WorkItem.class.getSimpleName());
             objectSchema.addPrimaryKey("id");
+            objectSchema = schema.get(Semester.class.getSimpleName());
+            objectSchema.addPrimaryKey("id");
+            objectSchema = schema.get(Subject.class.getSimpleName());
+            objectSchema.addPrimaryKey("id");
+
+            oldVersion++;
+        }
+
+        if (oldVersion == 2) {
+            RealmObjectSchema objectSchema = schema.create(Image.class.getSimpleName()).addField("id", int.class)
+                    .addField("bucketId", int.class).addField("path", String.class).addPrimaryKey("id");
+            schema.get(WorkItem.class.getSimpleName()).addRealmObjectField("image", objectSchema);
+
+            oldVersion++;
+        }
+
+        if (oldVersion == 3) {
+            RealmObjectSchema objectSchema = schema.get(Image.class.getSimpleName());
+            migrateIDField(objectSchema);
+
+            oldVersion++;
+        }
+
+        if (oldVersion == 4) {
+            RealmObjectSchema objectSchema = schema.get(Image.class.getSimpleName());
+            objectSchema.addPrimaryKey("id");
+
+            oldVersion++;
+        }
+
+        if (oldVersion == 5) {
+            RealmObjectSchema objectSchema = schema.get(Semester.class.getSimpleName());
+            objectSchema.addField("defaultFlag", boolean.class);
 
             oldVersion++;
         }
     }
 
-    private void migrateIDField(RealmObjectSchema objectSchema){
-        objectSchema.addField("newId",String.class);
+    private void migrateIDField(RealmObjectSchema objectSchema) {
+        objectSchema.addField("newId", String.class);
         objectSchema.transform(new RealmObjectSchema.Function() {
             @Override
             public void apply(DynamicRealmObject obj) {
-                obj.setString("newId",String.valueOf(obj.getInt("id")));
+                obj.setString("newId", String.valueOf(obj.getInt("id")));
             }
         });
         objectSchema.removeField("id");
-        objectSchema.renameField("newId","id");
+        objectSchema.renameField("newId", "id");
     }
 }
