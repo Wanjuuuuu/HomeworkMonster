@@ -68,7 +68,7 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
     int colorGray;
 
     private final static String TAG = MakeWorkActivity.class.getSimpleName();
-    private final static String TITLE="New Homework";
+    private final static String TITLE="Homework"; //
     public final static int RESULT=1994;
 
     private String workId=null;
@@ -310,6 +310,7 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
     public void onSpinnerOpened(Spinner spinner) {
         spinner.getBackground().setColorFilter(colorAmber, PorterDuff.Mode.SRC_ATOP);
     }
+
 
     @Override
     public void onSpinnerClosed(Spinner spinner) {

@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
     Drawable iconSemester;
 
     private final static String TAG = MainActivity.class.getSimpleName();
-    private final static String TITLE="HomeworkMonster";
+    private final static String TITLE = "HomeworkMonster";
 
     private WorkItemAdapter adapter;
     private RealmResults<WorkItem> workItems;
@@ -57,8 +57,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view=getLayoutInflater().inflate(R.layout.main_action_bar,null);
-        initActionBar(view,TITLE);
+        View view = getLayoutInflater().inflate(R.layout.main_action_bar, null);
+        initActionBar(view, TITLE);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -158,6 +158,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.action_add_semester)
     public void onClickAddSemester() {
-
+        Intent intentAddSemester=new Intent(this,MakeSemesterActivity.class);
+        startActivity(intentAddSemester);
     }
 }
