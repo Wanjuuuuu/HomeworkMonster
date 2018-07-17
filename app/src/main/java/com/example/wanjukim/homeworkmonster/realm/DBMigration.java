@@ -70,6 +70,13 @@ public class DBMigration implements RealmMigration {
 
             oldVersion++;
         }
+
+        if (oldVersion == 6) {
+            RealmObjectSchema objectSchema=schema.get(Semester.class.getSimpleName());
+            objectSchema.addField("semester",String.class);
+
+            oldVersion++;
+        }
     }
 
     private void migrateIDField(RealmObjectSchema objectSchema) {

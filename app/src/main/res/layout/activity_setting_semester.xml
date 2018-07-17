@@ -15,7 +15,9 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
         android:background="@drawable/border"
-        android:id="@+id/constraintLayout">
+        android:id="@+id/constraintLayout"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

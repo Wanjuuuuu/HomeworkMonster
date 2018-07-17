@@ -12,6 +12,7 @@ import io.realm.annotations.PrimaryKey;
 public class Semester extends RealmObject {
     @PrimaryKey
     private String id;
+    private String semester;
     private Date startDate;
     private Date endDate;
     private boolean defaultFlag;
@@ -20,15 +21,24 @@ public class Semester extends RealmObject {
 
     }
 
-    public Semester(String id, Date startDate, Date endDate) {
+    public Semester(String id, String semester, Date startDate, Date endDate, boolean defaultFlag) {
         this.id = id;
+        this.semester = semester;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.defaultFlag = false;
+        this.defaultFlag = defaultFlag;
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
     }
 
     public Date getStartDate() {

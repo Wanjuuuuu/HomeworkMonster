@@ -1,6 +1,7 @@
 package com.example.wanjukim.homeworkmonster.utils;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
@@ -40,5 +41,13 @@ public class Utils {
         long diff = deadline.getTime()-new Date().getTime();
         long dDay = (long) diff / (24 * 60 * 60 * 1000);
         return dDay;
+    }
+
+    public static Date getDate(Date date){
+        int dif=(int)(date.getTime()%(60*60*1000))/(60*1000);
+        if(dif!=0){
+            date.setTime(date.getTime()+(60-dif)*60*1000); // one hour more than date
+        }
+        return date;
     }
 }

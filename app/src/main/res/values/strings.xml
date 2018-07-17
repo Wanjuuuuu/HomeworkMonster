@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">HomeworkMonster</string>
+
+    <!--res-->
+
     <!--menu items-->
     <string name="menu_button">menu_button</string>
     <string name="search_button">search_button</string>
@@ -29,4 +32,13 @@
     <!--setting additional subject stuffs-->
     <string name="professor">Professor</string>
     <string name="classroom">Classroom</string>
+
+    <!--java-->
+
+    <!--strings from snackbar-->
+
+    <!--strings from dialog-->
+    <string name="dialog_default_change">Do you want to change Default Semester?</string>
+    <string name="dialog_positive_button">YES</string>
+    <string name="dialog_negative_button">NO</string>
 </resources>
