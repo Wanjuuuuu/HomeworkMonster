@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">HomeworkMonster</string>
+
+    <!--res-->
+
     <!--menu items-->
     <string name="menu_button">menu_button</string>
     <string name="search_button">search_button</string>
@@ -10,6 +13,8 @@
     <string name="option_submit">submit</string>
     <!--etv hint-->
     <string name="workname">homework name</string>
+    <string name="semestername">semester name</string>
+    <string name="subjectname">subject name</string>
     <string name="details">details</string>
     <!--setting menu stuffs-->
     <string name="semester">Semester</string>
@@ -20,4 +25,20 @@
     <string name="alarm">Alarm</string>
     <string name="memo">Memo</string>
     <string name="image">Image</string>
+    <!--setting additional semester stuffs-->
+    <string name="startin">Start in</string>
+    <string name="endin">End in</string>
+    <string name="def">Default</string>
+    <!--setting additional subject stuffs-->
+    <string name="professor">Professor</string>
+    <string name="classroom">Classroom</string>
+
+    <!--java-->
+
+    <!--strings from snackbar-->
+
+    <!--strings from dialog-->
+    <string name="dialog_default_change">Do you want to change Default Semester?</string>
+    <string name="dialog_positive_button">YES</string>
+    <string name="dialog_negative_button">NO</string>
 </resources>

@@ -27,6 +27,7 @@ import com.example.wanjukim.homeworkmonster.models.Image;
 import com.example.wanjukim.homeworkmonster.models.Subject;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.utils.ClearEditText;
+import com.example.wanjukim.homeworkmonster.utils.DatePickerDialogImpl;
 import com.example.wanjukim.homeworkmonster.utils.EventListenSpinner;
 import com.example.wanjukim.homeworkmonster.utils.Utils;
 
@@ -68,22 +69,22 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
     int colorGray;
 
     private final static String TAG = MakeWorkActivity.class.getSimpleName();
-    private final static String TITLE="New Homework";
-    public final static int RESULT=1994;
+    private final static String TITLE = "Homework"; //
+    public final static int RESULT = 1994;
 
-    private String workId=null;
+    private String workId = null;
     private WorkItem workItem;
     private RealmResults<Subject> subjects;
     private Subject subject;
     private int alarm;
     private Date date;
-    private Image image=null;
+    private Image image = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view=getLayoutInflater().inflate(R.layout.action_bar,null);
-        initActionBar(view,TITLE);
+        View view = getLayoutInflater().inflate(R.layout.action_bar, null);
+        initActionBar(view, TITLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
@@ -102,33 +103,28 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
 
         /* Branch : Add or Modify workItem */
 
-        if(getIntent().getExtras()==null) { // workId==null
-            date = new Date();
-            Log.d(TAG,"if extras is null");
-
-            int dif = (int) (date.getTime() % (60 * 60 * 1000)) / (60 * 1000);
-            if (dif != 0) {
-                date.setTime(date.getTime() + (60 - dif) * 60 * 1000); // one hour more than date
-            }
+        if (getIntent().getExtras() == null) { // workId==null
+            Log.d(TAG, "if extras is null");
+            date = Utils.getDate(new Date());
             tvDate.setText(Utils.dateFormat.format(date));
             tvTime.setText(Utils.timeFormat.format(date));
         } else {
-            workId=getIntent().getExtras().getString(GetWorkActivity.EXTRA);
+            workId = getIntent().getExtras().getString(GetWorkActivity.EXTRA);
 
-            workItem=realm.where(WorkItem.class).equalTo("id",workId).findFirst();
+            workItem = realm.where(WorkItem.class).equalTo("id", workId).findFirst();
 
             etvWork.setHint(workItem.getWork());
             etvMemo.setHint(workItem.getMemo());
-            date=workItem.getDeadline();
+            date = workItem.getDeadline();
             tvDate.setText(Utils.dateFormat.format(date));
             tvTime.setText(Utils.timeFormat.format(date));
-            image=workItem.getImage();
-            if(image!=null) {
+            image = workItem.getImage();
+            if (image != null) {
                 Glide.with(this).load(image.getPath()).into(ivImage);
             }
 
             spinnerSubject.setSelection(subjects.indexOf(workItem.getSubject()));
-            spinnerAlarm.setSelection(workItem.getAlarm()-1);
+            spinnerAlarm.setSelection(workItem.getAlarm() - 1);
 
         }
 
@@ -148,7 +144,7 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 alarm = position + 1;
-                if(alarm!=1 && alarm>Utils.getDday(date)){
+                if (alarm != 1 && alarm > Utils.getDday(date)) {
                     showSnackbar("Deadline is earlier than alarm!");
                 }
             }
@@ -168,18 +164,18 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(year, month, dayOfMonth);
-                date = calendar.getTime();
-                tvDate.setText(Utils.dateFormat.format(date)); //
-                Log.d(TAG, " time : " + Utils.timeFormat.format(date));
-            }
-        }, year, month, day);
-        
-        datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+//        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                calendar.set(year, month, dayOfMonth);
+//                date = calendar.getTime();
+//                tvDate.setText(Utils.dateFormat.format(date)); //
+//                Log.d(TAG, " time : " + Utils.timeFormat.format(date));
+//            }
+//        }, year, month, day);
 
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialogImpl(date, tvDate), year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
         datePickerDialog.show();
     }
 
@@ -196,7 +192,7 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(year,month,day, hourOfDay, minute);
+                calendar.set(year, month, day, hourOfDay, minute);
                 date = calendar.getTime();
                 tvTime.setText(Utils.timeFormat.format(date)); //
                 Log.d(TAG, " time : " + Utils.dateFormat.format(date));
@@ -207,17 +203,17 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
     }
 
     @OnClick(R.id.get_image_layout)
-    public void onClickImage(){
-        Intent intent=new Intent(this,GetImageActivity.class);
-        startActivityForResult(intent,RESULT);
+    public void onClickImage() {
+        Intent intent = new Intent(this, GetImageActivity.class);
+        startActivityForResult(intent, RESULT);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==RESULT){
-            if(resultCode==RESULT_OK) {
+        if (requestCode == RESULT) {
+            if (resultCode == RESULT_OK) {
                 image = (Image) data.getSerializableExtra(GetImageActivity.EXTRA);
                 Glide.with(this).load(image.getPath()).into(ivImage);
             }
@@ -232,12 +228,12 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
             case R.id.setting_save:
-                if(workId==null) {
+                if (workId == null) {
                     addWorkItem();
                 } else {
                     modifyWorkItem();
@@ -265,7 +261,7 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
         work.setAlarm(alarm);
         work.setDeadline(date);
 
-        if(image==null) {
+        if (image == null) {
             work.setImage(null);
         } else {
             Image imageItem = realm.copyToRealm(image);
@@ -275,15 +271,15 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
         realm.commitTransaction();
     }
 
-    private void modifyWorkItem(){
+    private void modifyWorkItem() {
         String workname = etvWork.getText().toString();
         String memo = etvMemo.getText().toString();
 
-        if(workname.equals("")){
-            workname=workItem.getWork();
+        if (workname.equals("")) {
+            workname = workItem.getWork();
         }
-        if(memo.equals("")){
-            memo=workItem.getMemo();
+        if (memo.equals("")) {
+            memo = workItem.getMemo();
         }
 
         Realm realm = Realm.getDefaultInstance(); // opens default db
@@ -296,7 +292,7 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
         workItem.setAlarm(alarm);
         workItem.setDeadline(date);
 
-        if(image==null) {
+        if (image == null) {
             workItem.setImage(null);
         } else {
             Image imageItem = realm.copyToRealm(image);
@@ -310,6 +306,7 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
     public void onSpinnerOpened(Spinner spinner) {
         spinner.getBackground().setColorFilter(colorAmber, PorterDuff.Mode.SRC_ATOP);
     }
+
 
     @Override
     public void onSpinnerClosed(Spinner spinner) {
