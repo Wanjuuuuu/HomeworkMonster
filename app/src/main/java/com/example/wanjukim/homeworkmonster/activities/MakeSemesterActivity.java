@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by Wanju Kim on 2018-03-08.
@@ -106,29 +107,35 @@ public class MakeSemesterActivity extends BaseActivity {
                 return true;
             case R.id.setting_save:
                 if (semesterId == null) {
-//                    if (swDefault.isChecked()) { // UI thread 중지 시키는거..;;;
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                        builder.setMessage(R.string.dialog_default_change).setCancelable(false)
-//                                .setPositiveButton(R.string.dialog_positive_button, new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        dialog.dismiss();
-//                                        changeDefSemester();
-//                                    }
-//                                })
-//                                .setNegativeButton(R.string.dialog_negative_button, new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        dialog.cancel();
-//                                        return;
-//                                    }
-//                                });
-//                    }
-                    addSemesterItem();
+                    if (swDefault.isChecked()) { // UI thread 중지 시키는거..;;;
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setMessage(R.string.dialog_default_change).setCancelable(false)
+                                .setPositiveButton(R.string.dialog_positive_button, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        changeDefSemester();
+                                        addSemesterItem(); //
+                                        finish(); //
+                                    }
+                                })
+                                .setNegativeButton(R.string.dialog_negative_button, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                        return;
+                                    }
+                                }).show();
+                    } else {
+                        addSemesterItem();
+                        finish();
+                    }
+//                    addSemesterItem(); // Thread sync..??//
                 } else {
                     modifySemesterItem();
+                    finish();
                 }
-                finish();
+//                    finish(); //
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -137,11 +144,14 @@ public class MakeSemesterActivity extends BaseActivity {
     private void changeDefSemester() {
         Realm realm = Realm.getDefaultInstance();
 
-        Semester prevDefSemester = realm.where(Semester.class).equalTo("defaultFlag", true).findFirst();
+        RealmResults<Semester> prevDefSemesters = realm.where(Semester.class).equalTo("defaultFlag", true).findAll();
 
-        if (prevDefSemester != null) {
+        if (!prevDefSemesters.isEmpty()) {
             realm.beginTransaction();
-            prevDefSemester.setDefaultFlag(false);
+
+            for(Semester semester:prevDefSemesters)
+                semester.setDefaultFlag(false);
+
             realm.commitTransaction();
         }
     }
