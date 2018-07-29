@@ -175,7 +175,8 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.action_add_subject)
     public void onClickAddSubject() {
-
+        Intent intentAddSubject=new Intent(this,MakeSubjectActivity.class);
+        startActivity(intentAddSubject);
     }
 
     @OnClick(R.id.action_add_semester)

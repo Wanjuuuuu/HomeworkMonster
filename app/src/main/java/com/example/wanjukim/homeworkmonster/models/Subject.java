@@ -12,15 +12,21 @@ public class Subject extends RealmObject {
     private String id;
     private String subject;
     private Semester semester;
+    private String professor;
+    private String classroom;
+    private String memo;
 
     public Subject(){
 
     }
 
-    public Subject(String id, String subject, Semester semester) {
+    public Subject(String id, String subject, Semester semester, String professor, String classroom, String memo) {
         this.id = id;
         this.subject = subject;
-        this.semester=semester;
+        this.semester = semester;
+        this.professor = professor;
+        this.classroom = classroom;
+        this.memo = memo;
     }
 
     public String getId() {
@@ -45,6 +51,30 @@ public class Subject extends RealmObject {
 
     public void setSemester(Semester semester) {
         this.semester = semester;
+    }
+
+    public String getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(String professor) {
+        this.professor = professor;
+    }
+
+    public String getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(String classroom) {
+        this.classroom = classroom;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 
     /* Necessary : spinner shows this as an item */

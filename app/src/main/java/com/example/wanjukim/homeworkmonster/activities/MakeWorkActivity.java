@@ -125,7 +125,6 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
 
             spinnerSubject.setSelection(subjects.indexOf(workItem.getSubject()));
             spinnerAlarm.setSelection(workItem.getAlarm() - 1);
-
         }
 
         spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -109,7 +109,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             SimpleDateFormat formatter = new SimpleDateFormat("MMM d h:mm a", Locale.ENGLISH);
 
             work.setText(workItem.getWork());
-            subject.setText(workItem.getId()+" ");// 이후 subject로 변경해주기
+            subject.setText(workItem.getSubject().toString());
             dDay.setText(String.format("D-%02d",Utils.getDday(workItem.getDeadline())));
             deadline.setText(formatter.format(workItem.getDeadline()));
         }

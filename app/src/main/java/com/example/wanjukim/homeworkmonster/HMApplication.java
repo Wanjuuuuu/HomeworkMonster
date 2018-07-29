@@ -24,7 +24,7 @@ public class HMApplication extends Application {
 
         Realm.init(this);
         RealmConfiguration config=new RealmConfiguration.Builder()
-                .name("HMDB").schemaVersion(7).migration(new DBMigration()).build();
+                .name("HMDB").schemaVersion(8).migration(new DBMigration()).build();
         Realm.setDefaultConfiguration(config);
     }
 

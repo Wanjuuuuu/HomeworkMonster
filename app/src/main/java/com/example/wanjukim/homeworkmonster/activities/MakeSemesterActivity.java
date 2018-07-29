@@ -55,6 +55,7 @@ public class MakeSemesterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         View view = getLayoutInflater().inflate(R.layout.action_bar, null);
         initActionBar(view, TITLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_setting_semester);
         ButterKnife.bind(this);
 

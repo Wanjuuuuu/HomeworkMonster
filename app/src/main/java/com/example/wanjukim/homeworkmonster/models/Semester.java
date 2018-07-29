@@ -68,4 +68,10 @@ public class Semester extends RealmObject {
     public void setDefaultFlag(boolean defaultFlag) {
         this.defaultFlag = defaultFlag;
     }
+
+    /* Necessary : spinner shows this as an item */
+    @Override
+    public String toString() {
+        return getSemester();
+    }
 }

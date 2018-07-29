@@ -9,6 +9,7 @@ import io.realm.DynamicRealm;
 import io.realm.DynamicRealmObject;
 import io.realm.RealmMigration;
 import io.realm.RealmObjectSchema;
+import io.realm.RealmResults;
 import io.realm.RealmSchema;
 
 /**
@@ -74,6 +75,14 @@ public class DBMigration implements RealmMigration {
         if (oldVersion == 6) {
             RealmObjectSchema objectSchema=schema.get(Semester.class.getSimpleName());
             objectSchema.addField("semester",String.class);
+
+            oldVersion++;
+        }
+
+        if(oldVersion==7){
+            RealmObjectSchema objectSchema=schema.get(Subject.class.getSimpleName());
+            objectSchema.addField("professor",String.class)
+                    .addField("classroom",String.class).addField("memo",String.class);
 
             oldVersion++;
         }
