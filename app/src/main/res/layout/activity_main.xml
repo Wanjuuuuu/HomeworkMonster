@@ -1,75 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.wanjukim.homeworkmonster.activities.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_recyclerview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.RecyclerView>
+    <!--the main content-->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/main_invisible_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:visibility="invisible"
-        android:background="@color/colorTransparentWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></android.support.v7.widget.RecyclerView>
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        fab:fab_addButtonColorNormal="@color/colorDarkerLime"
-        fab:fab_addButtonColorPressed="@color/colorDarkerLime"
-        fab:fab_addButtonSize="normal"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        fab:fab_labelsPosition="left">
+        <LinearLayout
+            android:id="@+id/main_invisible_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorTransparentWhite"
+            android:orientation="horizontal"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_add_semester"
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/colorDarkerAmber"
-            fab:fab_colorPressed="@color/colorDarkerAmber"
-            fab:fab_title="@string/semester" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            fab:fab_addButtonColorNormal="@color/colorDarkerLime"
+            fab:fab_addButtonColorPressed="@color/colorDarkerLime"
+            fab:fab_addButtonSize="normal"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            fab:fab_labelsPosition="left">
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_add_subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/colorDarkerAmber"
-            fab:fab_colorPressed="@color/colorDarkerAmber"
-            fab:fab_title="@string/subject" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_add_semester"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/colorDarkerAmber"
+                fab:fab_colorPressed="@color/colorDarkerAmber"
+                fab:fab_title="@string/semester" />
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_add_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="@color/colorDarkerAmber"
-            fab:fab_colorPressed="@color/colorDarkerAmber"
-            fab:fab_title="@string/homework" />
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_add_subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/colorDarkerAmber"
+                fab:fab_colorPressed="@color/colorDarkerAmber"
+                fab:fab_title="@string/subject" />
 
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_add_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/colorDarkerAmber"
+                fab:fab_colorPressed="@color/colorDarkerAmber"
+                fab:fab_title="@string/homework" />
 
-</android.support.constraint.ConstraintLayout>
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    </android.support.constraint.ConstraintLayout>
+
+    <!--the navigation view // size 추후변경-->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorDefault"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"></android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

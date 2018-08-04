@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@drawable/border">
 
-    <!--bottom-->
+    <!--bottom 아예 가운데에 들어가지가 않음-->
     <LinearLayout
         android:id="@+id/bottom_swipe_layout"
         android:layout_width="160dp"
@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:gravity="center_horizontal|center_vertical"
+                android:gravity="center"
                 android:text="@string/option_giveup"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/option_string_size"
@@ -44,7 +44,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:gravity="center_horizontal|center_vertical"
+                android:gravity="center"
                 android:text="@string/option_submit"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/option_string_size"

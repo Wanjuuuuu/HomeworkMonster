@@ -3,6 +3,10 @@ package com.example.wanjukim.homeworkmonster.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -10,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.wanjukim.homeworkmonster.R;
@@ -32,8 +37,14 @@ import io.realm.Sort;
 public class MainActivity extends BaseActivity {
     @BindView(R.id.main_recyclerview)
     RecyclerView recyclerView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.navigation_view)
+    NavigationView navigationView;
     @BindView(R.id.main_invisible_layout)
     LinearLayout invisibleLayout;
+    @BindView(R.id.iv_menu)
+    ImageView ivMenu;
     @BindView(R.id.add_button)
     FloatingActionsMenu fabMenu;
     @BindView(R.id.action_add_item)
@@ -62,6 +73,16 @@ public class MainActivity extends BaseActivity {
         initActionBar(view, TITLE);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                drawerLayout.closeDrawers();
+
+                return true;
+            }
+        });
 
         Realm realm = Realm.getDefaultInstance();
 
@@ -113,6 +134,15 @@ public class MainActivity extends BaseActivity {
         fabSemester.setIconDrawable(iconSemester);
     }
 
+    @OnClick(R.id.iv_menu)
+    public void onClickMenu(){
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawers();
+        } else {
+            drawerLayout.openDrawer(GravityCompat.START);
+        }
+    }
+
     @OnClick(R.id.main_invisible_layout)
     public void onCollapse() {
         fabMenu.collapse();
@@ -121,7 +151,7 @@ public class MainActivity extends BaseActivity {
     /* when back to main activity */
 
     @Override
-    protected void onResume() {
+    protected void onResume() { // 홈, 과제, 과목, 학기 ... // intent 내요을 받을 수 있는가
         super.onResume();
         onCollapse();
 
