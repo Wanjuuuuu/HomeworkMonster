@@ -91,7 +91,7 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
 
         Realm realm = Realm.getDefaultInstance();
 
-        subjects = realm.where(Subject.class).findAll(); // TODO : filtering default semester!!
+        subjects = realm.where(Subject.class).equalTo("semester.defaultFlag",true).findAll(); // TODO : filtering default semester!!
 
         SpinnerAdapter subjectSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, subjects);
         spinnerSubject.setAdapter(subjectSpinnerAdapter);
