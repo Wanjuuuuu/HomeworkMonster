@@ -2,7 +2,7 @@ package com.example.wanjukim.homeworkmonster.activities;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +15,6 @@ import android.widget.SpinnerAdapter;
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.models.Semester;
 import com.example.wanjukim.homeworkmonster.models.Subject;
-import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.utils.EventListenSpinner;
 
 import java.util.UUID;

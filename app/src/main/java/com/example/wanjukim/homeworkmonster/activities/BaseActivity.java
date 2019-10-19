@@ -1,14 +1,12 @@
 package com.example.wanjukim.homeworkmonster.activities;
 
-import android.graphics.Color;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.androidadvance.topsnackbar.TSnackbar;
 import com.example.wanjukim.homeworkmonster.R;
 
 /**

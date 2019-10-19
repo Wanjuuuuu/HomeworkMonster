@@ -1,9 +1,8 @@
 package com.example.wanjukim.homeworkmonster.activities;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +15,11 @@ import com.example.wanjukim.homeworkmonster.adapters.WorkItemAdapter;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.utils.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
-import io.realm.RealmObject;
 
 /**
  * Created by Wanju Kim on 2018-02-27.
