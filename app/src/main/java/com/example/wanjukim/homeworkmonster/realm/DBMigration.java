@@ -44,7 +44,8 @@ public class DBMigration implements RealmMigration {
         }
 
         if (oldVersion == 2) {
-            RealmObjectSchema objectSchema = schema.create(Image.class.getSimpleName()).addField("id", int.class)
+            RealmObjectSchema objectSchema = schema.create(Image.class.getSimpleName()).addField(
+                    "id", int.class)
                     .addField("bucketId", int.class).addField("path", String.class).addPrimaryKey("id");
             schema.get(WorkItem.class.getSimpleName()).addRealmObjectField("image", objectSchema);
 
@@ -73,16 +74,16 @@ public class DBMigration implements RealmMigration {
         }
 
         if (oldVersion == 6) {
-            RealmObjectSchema objectSchema=schema.get(Semester.class.getSimpleName());
-            objectSchema.addField("semester",String.class);
+            RealmObjectSchema objectSchema = schema.get(Semester.class.getSimpleName());
+            objectSchema.addField("semester", String.class);
 
             oldVersion++;
         }
 
-        if(oldVersion==7){
-            RealmObjectSchema objectSchema=schema.get(Subject.class.getSimpleName());
-            objectSchema.addField("professor",String.class)
-                    .addField("classroom",String.class).addField("memo",String.class);
+        if (oldVersion == 7) {
+            RealmObjectSchema objectSchema = schema.get(Subject.class.getSimpleName());
+            objectSchema.addField("professor", String.class)
+                    .addField("classroom", String.class).addField("memo", String.class);
 
             oldVersion++;
         }

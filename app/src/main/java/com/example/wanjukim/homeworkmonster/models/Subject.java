@@ -16,11 +16,12 @@ public class Subject extends RealmObject {
     private String classroom;
     private String memo;
 
-    public Subject(){
+    public Subject() {
 
     }
 
-    public Subject(String id, String subject, Semester semester, String professor, String classroom, String memo) {
+    public Subject(String id, String subject, Semester semester, String professor,
+                   String classroom, String memo) {
         this.id = id;
         this.subject = subject;
         this.semester = semester;

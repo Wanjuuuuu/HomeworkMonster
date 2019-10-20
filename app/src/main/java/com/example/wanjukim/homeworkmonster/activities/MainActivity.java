@@ -3,13 +3,17 @@ package com.example.wanjukim.homeworkmonster.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,19 +78,18 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                item.setChecked(true);
-                drawerLayout.closeDrawers();
+        navigationView.setNavigationItemSelectedListener((item) -> {
+            item.setChecked(true);
+            drawerLayout.closeDrawers();
 
-                return true;
-            }
+            return true;
         });
 
         Realm realm = Realm.getDefaultInstance();
 
-        workItems = realm.where(WorkItem.class).equalTo("state", WorkItem.BEFORE).greaterThan("deadline", new Date()).findAll().sort("deadline", Sort.ASCENDING); // get rid of ended works which are not updated yet
+        // get rid of ended works which are not updated yet
+        workItems = realm.where(WorkItem.class).equalTo("state", WorkItem.BEFORE).greaterThan(
+                "deadline", new Date()).findAll().sort("deadline", Sort.ASCENDING);
 
         adapter = new WorkItemAdapter(this, workItems);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -98,12 +101,13 @@ public class MainActivity extends BaseActivity {
         /* issue : menu doesn't have hide or show method as normal fab */
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) { // dy : the amount of vertical scroll
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                // dy : the amount of vertical scroll
                 if (dy > 0) {
                     fabMenu.animate().translationY(fabMenu.getHeight())
                             .setInterpolator(new AccelerateDecelerateInterpolator())
@@ -135,8 +139,8 @@ public class MainActivity extends BaseActivity {
     }
 
     @OnClick(R.id.iv_menu)
-    public void onClickMenu(){
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+    public void onClickMenu() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers();
         } else {
             drawerLayout.openDrawer(GravityCompat.START);
@@ -155,8 +159,10 @@ public class MainActivity extends BaseActivity {
         super.onResume();
         onCollapse();
 
+        // get rid of ended works which are not updated yet
         Realm realm = Realm.getDefaultInstance();
-        workItems = realm.where(WorkItem.class).equalTo("state", WorkItem.BEFORE).greaterThan("deadline", new Date()).findAll().sort("deadline", Sort.ASCENDING); // get rid of ended works which are not updated yet
+        workItems = realm.where(WorkItem.class).equalTo("state", WorkItem.BEFORE).greaterThan(
+                "deadline", new Date()).findAll().sort("deadline", Sort.ASCENDING);
 
         adapter.notifyDataSetChanged();
     }
@@ -164,7 +170,8 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar, menu);
-        final SearchView searchView=(SearchView)menu.findItem(R.id.search_button).getActionView();
+        final SearchView searchView =
+                (SearchView) menu.findItem(R.id.search_button).getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -184,14 +191,13 @@ public class MainActivity extends BaseActivity {
     }
 
     // TODO : use realm to retrieve items
-    private void performSearch(String query){
+    private void performSearch(String query) {
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.search_button:
+        if (item.getItemId() == R.id.search_button) {
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -205,13 +211,13 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.action_add_subject)
     public void onClickAddSubject() {
-        Intent intentAddSubject=new Intent(this,MakeSubjectActivity.class);
+        Intent intentAddSubject = new Intent(this, MakeSubjectActivity.class);
         startActivity(intentAddSubject);
     }
 
     @OnClick(R.id.action_add_semester)
     public void onClickAddSemester() {
-        Intent intentAddSemester=new Intent(this,MakeSemesterActivity.class);
+        Intent intentAddSemester = new Intent(this, MakeSemesterActivity.class);
         startActivity(intentAddSemester);
     }
 }

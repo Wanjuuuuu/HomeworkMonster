@@ -2,7 +2,9 @@ package com.example.wanjukim.homeworkmonster.activities;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,7 +70,8 @@ public class MakeSubjectActivity extends BaseActivity implements EventListenSpin
         semesters = realm.where(Semester.class).findAll();
         Semester defSemster = semesters.where().equalTo("defaultFlag", true).findFirst();
 
-        SpinnerAdapter semesterSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, semesters);
+        SpinnerAdapter semesterSpinnerAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, semesters);
         spinnerSemester.setAdapter(semesterSpinnerAdapter);
         spinnerSemester.setSpinnerEventListener(this);
         spinnerSemester.setSelection(semesters.indexOf(defSemster));

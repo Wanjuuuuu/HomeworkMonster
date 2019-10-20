@@ -5,8 +5,10 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -89,13 +91,15 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
 
         Realm realm = Realm.getDefaultInstance();
 
-        subjects = realm.where(Subject.class).equalTo("semester.defaultFlag",true).findAll();
+        subjects = realm.where(Subject.class).equalTo("semester.defaultFlag", true).findAll();
 
-        SpinnerAdapter subjectSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, subjects);
+        SpinnerAdapter subjectSpinnerAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, subjects);
         spinnerSubject.setAdapter(subjectSpinnerAdapter);
         spinnerSubject.setSpinnerEventListener(this);
 
-        final SpinnerAdapter alarmSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Utils.alarms);
+        final SpinnerAdapter alarmSpinnerAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, Utils.alarms);
         spinnerAlarm.setAdapter(alarmSpinnerAdapter);
         spinnerAlarm.setSpinnerEventListener(this);
 
@@ -133,7 +137,8 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                subject = (Subject) spinnerSubject.getSelectedItem(); // TODO : default subject exists? null???
+                subject = (Subject) spinnerSubject.getSelectedItem(); // TODO : default subject
+                // exists? null???
             }
         });
 
@@ -161,17 +166,8 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-//        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                calendar.set(year, month, dayOfMonth);
-//                date = calendar.getTime();
-//                tvDate.setText(Utils.dateFormat.format(date)); //
-//                Log.d(TAG, " time : " + Utils.timeFormat.format(date));
-//            }
-//        }, year, month, day);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialogImpl(date, tvDate), year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialogImpl(date, tvDate), year, month, day);
         datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
         datePickerDialog.show();
     }
@@ -186,16 +182,13 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int min = calendar.get(Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(year, month, day, hourOfDay, minute);
-                date = calendar.getTime();
-                tvTime.setText(Utils.timeFormat.format(date)); //
-                Log.d(TAG, " time : " + Utils.dateFormat.format(date));
-            }
-        }, hour, min, false);
-
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                (view, hourOfDay, minute) -> {
+                    calendar.set(year, month, day, hourOfDay, minute);
+                    date = calendar.getTime();
+                    tvTime.setText(Utils.timeFormat.format(date)); //
+                    Log.d(TAG, " time : " + Utils.dateFormat.format(date));
+                }, hour, min, false);
         timePickerDialog.show();
     }
 

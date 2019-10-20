@@ -2,7 +2,9 @@ package com.example.wanjukim.homeworkmonster.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+
 import androidx.appcompat.widget.AppCompatEditText;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -18,11 +20,12 @@ import butterknife.ButterKnife;
  * Created by Wanju Kim on 2018-02-08.
  */
 
-public class ClearEditText extends AppCompatEditText implements View.OnTouchListener,View.OnFocusChangeListener {
+public class ClearEditText extends AppCompatEditText implements View.OnTouchListener,
+        View.OnFocusChangeListener {
     @BindDrawable(R.drawable.ic_x1)
     Drawable btnClear;
 
-    private static final String TAG=ClearEditText.class.getSimpleName();
+    private static final String TAG = ClearEditText.class.getSimpleName();
 
     public ClearEditText(Context context) {
         super(context);
@@ -39,10 +42,10 @@ public class ClearEditText extends AppCompatEditText implements View.OnTouchList
         init();
     }
 
-    private void init(){
+    private void init() {
         ButterKnife.bind(this);
 
-        btnClear.setBounds(0,0,btnClear.getIntrinsicWidth(),btnClear.getIntrinsicHeight());
+        btnClear.setBounds(0, 0, btnClear.getIntrinsicWidth(), btnClear.getIntrinsicHeight());
 
         setClearBtnVisible(false);
 
@@ -57,8 +60,8 @@ public class ClearEditText extends AppCompatEditText implements View.OnTouchList
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 // when changed text, check the length of text and show
-                if(isFocused()){
-                    setClearBtnVisible(charSequence.length()>0);
+                if (isFocused()) {
+                    setClearBtnVisible(charSequence.length() > 0);
                 }
             }
 
@@ -76,9 +79,9 @@ public class ClearEditText extends AppCompatEditText implements View.OnTouchList
 
     @Override
     public void onFocusChange(View view, boolean b) {
-        if(b){
+        if (b) {
             setHint("");
-            setClearBtnVisible(getText().length()>0);
+            setClearBtnVisible(getText().length() > 0);
         } else {
             setClearBtnVisible(false);
         }
@@ -93,9 +96,9 @@ public class ClearEditText extends AppCompatEditText implements View.OnTouchList
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        int x=(int)motionEvent.getX();
-        if(btnClear.isVisible()&&x>getWidth()-getPaddingRight()-btnClear.getIntrinsicWidth()){
-            if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+        int x = (int) motionEvent.getX();
+        if (btnClear.isVisible() && x > getWidth() - getPaddingRight() - btnClear.getIntrinsicWidth()) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                 setError(null);
                 setText(null);
             }

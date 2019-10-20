@@ -1,7 +1,9 @@
 package com.example.wanjukim.homeworkmonster.utils;
 
 import android.content.Context;
+
 import androidx.appcompat.widget.AppCompatSpinner;
+
 import android.util.AttributeSet;
 import android.widget.Spinner;
 
@@ -11,13 +13,14 @@ import android.widget.Spinner;
 
 public class EventListenSpinner extends AppCompatSpinner {
 
-    public interface OnSpinnerEventsListener{
+    public interface OnSpinnerEventsListener {
         void onSpinnerOpened(Spinner spinner);
+
         void onSpinnerClosed(Spinner spinner);
     }
 
     private OnSpinnerEventsListener listener;
-    private boolean opened=false;
+    private boolean opened = false;
 
     public EventListenSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -25,9 +28,9 @@ public class EventListenSpinner extends AppCompatSpinner {
 
     @Override
     public boolean performClick() {
-        if(listener!=null){
-            if(opened==false){
-                opened=true;
+        if (listener != null) {
+            if (!opened) {
+                opened = true;
                 listener.onSpinnerOpened(this);
             } else {
                 performClosedEvent();
@@ -36,23 +39,23 @@ public class EventListenSpinner extends AppCompatSpinner {
         return super.performClick();
     }
 
-    public void performClosedEvent(){
-        opened=false;
+    public void performClosedEvent() {
+        opened = false;
 //        if(listener!=null){
-            listener.onSpinnerClosed(this);
+        listener.onSpinnerClosed(this);
 //        }
     }
 
-    public void setSpinnerEventListener(OnSpinnerEventsListener onSpinnerEventsListener){
-        listener=onSpinnerEventsListener;
+    public void setSpinnerEventListener(OnSpinnerEventsListener onSpinnerEventsListener) {
+        listener = onSpinnerEventsListener;
     }
 
-    public boolean isOpened(){
+    public boolean isOpened() {
         return opened;
     }
 
-    public void onWindowFocusChanged(boolean hasFocus){
-        if(isOpened()&&hasFocus){
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (isOpened() && hasFocus) {
             performClosedEvent();
         }
     }

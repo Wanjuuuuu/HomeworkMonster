@@ -28,10 +28,9 @@ public class DatePickerDialogImpl implements DatePickerDialog.OnDateSetListener 
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar calendar=Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, dayOfMonth);
         textView.setText(Utils.dateFormat.format(calendar.getTime()));
         date.setTime(calendar.getTimeInMillis());
-//        Log.d(MakeWorkActivity.class.getSimpleName(),"IMPL date : "+Utils.dateFormat.format(date));
     }
 }
