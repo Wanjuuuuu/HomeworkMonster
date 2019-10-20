@@ -35,7 +35,8 @@ public class WorkItem extends RealmObject implements Serializable {
 
     }
 
-    public WorkItem(String id, String work, Subject subject, Date deadline, int alarm, String memo) {
+    public WorkItem(String id, String work, Subject subject, Date deadline, int alarm,
+                    String memo) {
         this.id = id;
         this.work = work;
         this.subject = subject;

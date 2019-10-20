@@ -35,30 +35,31 @@ import io.realm.Realm;
  */
 
 public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkItemHolder> {
-    public final static String EXTRA="WORKID";
+    public final static String EXTRA = "WORKID";
 
     private Context context;
     private LayoutInflater inflater;
     private List<WorkItem> workItems;
     private WorkItemHolder workItemHolder;
 
-    public WorkItemAdapter(Context context,List<WorkItem> workItems){
-        this.context=context;
-        inflater=LayoutInflater.from(context);
-        this.workItems=workItems;
+    public WorkItemAdapter(Context context, List<WorkItem> workItems) {
+        this.context = context;
+        inflater = LayoutInflater.from(context);
+        this.workItems = workItems;
 
         setMode(Attributes.Mode.Single);
     }
 
     @Override
     public WorkItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        workItemHolder= new WorkItemHolder(inflater.inflate(R.layout.swipe_item_view,parent,false));
+        workItemHolder = new WorkItemHolder(inflater.inflate(R.layout.swipe_item_view, parent,
+                false));
         return workItemHolder;
     }
 
     @Override
     public void onBindViewHolder(WorkItemHolder viewHolder, int position) {
-        WorkItem workItem=workItems.get(position);
+        WorkItem workItem = workItems.get(position);
         viewHolder.bind(workItem);
     }
 
@@ -72,26 +73,35 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
         return workItems.size();
     }
 
-    public void closeItems(){
-        for(int id:getOpenItems()){
+    public void closeItems() {
+        for (int id : getOpenItems()) {
             closeItem(id);
         }
     }
 
     class WorkItemHolder extends RecyclerView.ViewHolder implements SwipeLayout.SwipeListener {
-        @BindView(R.id.swipe_layout) SwipeLayout swipeLayout;
-        @BindView(R.id.main_work) TextView work;
-        @BindView(R.id.main_subject) TextView subject;
-        @BindView(R.id.main_dday) TextView dDay;
-        @BindView(R.id.main_deadline) TextView deadline;
-        @BindView(R.id.surface_swipe_layout) ConstraintLayout surfaceLayout;
-        @BindView(R.id.bottom_swipe_layout) LinearLayout bottomLayout;
-        @BindView(R.id.swipe_option1) ConstraintLayout option1;
-        @BindView(R.id.swipe_option2) ConstraintLayout option2;
+        @BindView(R.id.swipe_layout)
+        SwipeLayout swipeLayout;
+        @BindView(R.id.main_work)
+        TextView work;
+        @BindView(R.id.main_subject)
+        TextView subject;
+        @BindView(R.id.main_dday)
+        TextView dDay;
+        @BindView(R.id.main_deadline)
+        TextView deadline;
+        @BindView(R.id.surface_swipe_layout)
+        ConstraintLayout surfaceLayout;
+        @BindView(R.id.bottom_swipe_layout)
+        LinearLayout bottomLayout;
+        @BindView(R.id.swipe_option1)
+        ConstraintLayout option1;
+        @BindView(R.id.swipe_option2)
+        ConstraintLayout option2;
 
         private WorkItem workItem;
 
-        WorkItemHolder(View view){
+        WorkItemHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
 
@@ -100,27 +110,27 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             swipeLayout.addSwipeListener(this);
         }
 
-        private void bind(WorkItem workItem){
+        private void bind(WorkItem workItem) {
             this.workItem = workItem;
 
             SimpleDateFormat formatter = new SimpleDateFormat("MMM d h:mm a", Locale.ENGLISH);
 
             work.setText(workItem.getWork());
             subject.setText(workItem.getSubject().toString());
-            dDay.setText(String.format("D-%02d",Utils.getDday(workItem.getDeadline())));
+            dDay.setText(String.format("D-%02d", Utils.getDday(workItem.getDeadline())));
             deadline.setText(formatter.format(workItem.getDeadline()));
         }
 
         @OnClick(R.id.surface_swipe_layout)
         public void onClickModify() {
-            Intent intent=new Intent(context, GetWorkActivity.class);
-            intent.putExtra(EXTRA,workItem.getId());
+            Intent intent = new Intent(context, GetWorkActivity.class);
+            intent.putExtra(EXTRA, workItem.getId());
             context.startActivity(intent);
         }
 
         @OnClick(R.id.swipe_option1)
         public void onClickGiveUp() {
-            Realm realm=Realm.getDefaultInstance();
+            Realm realm = Realm.getDefaultInstance();
 
             realm.beginTransaction();
             workItem.setState(WorkItem.GIVEUP);
@@ -128,12 +138,13 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
 
             notifyDataSetChanged();
 
-            Utils.showTopSnackBar((Activity)context,"Given up "+ "\""+workItem.getWork()+ "\"");
+            Utils.showTopSnackBar((Activity) context, "Given up " + "\"" + workItem.getWork() +
+                    "\"");
         }
 
         @OnClick(R.id.swipe_option2)
         public void onClickSubmit() {
-            Realm realm=Realm.getDefaultInstance();
+            Realm realm = Realm.getDefaultInstance();
 
             realm.beginTransaction();
             workItem.setState(WorkItem.SUBMIT);
@@ -141,7 +152,8 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
 
             notifyDataSetChanged();
 
-            Utils.showTopSnackBar((Activity)context,"Submitted "+ "\""+workItem.getWork()+ "\"");
+            Utils.showTopSnackBar((Activity) context, "Submitted " + "\"" + workItem.getWork() +
+                    "\"");
         }
 
         @Override

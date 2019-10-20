@@ -2,7 +2,9 @@ package com.example.wanjukim.homeworkmonster.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,47 +28,54 @@ import io.realm.Realm;
  */
 
 public class GetWorkActivity extends BaseActivity {
-    @BindView(R.id.tv_details_work)TextView tvWork;
-    @BindView(R.id.tv_details_subject)TextView tvSubject;
-    @BindView(R.id.tv_details_date)TextView tvDate;
-    @BindView(R.id.tv_details_time)TextView tvTime;
-    @BindView(R.id.tv_details_alarm)TextView tvAlarm;
-    @BindView(R.id.tv_details_memo)TextView tvMemo;
-    @BindView(R.id.iv_details_image)ImageView ivImage;
+    @BindView(R.id.tv_details_work)
+    TextView tvWork;
+    @BindView(R.id.tv_details_subject)
+    TextView tvSubject;
+    @BindView(R.id.tv_details_date)
+    TextView tvDate;
+    @BindView(R.id.tv_details_time)
+    TextView tvTime;
+    @BindView(R.id.tv_details_alarm)
+    TextView tvAlarm;
+    @BindView(R.id.tv_details_memo)
+    TextView tvMemo;
+    @BindView(R.id.iv_details_image)
+    ImageView ivImage;
 
-    private final static String TITLE="Get Details";
-    public final static String EXTRA="WORKID";
+    private final static String TITLE = "Get Details";
+    public final static String EXTRA = "WORKID";
 
-    private String workId=null;
+    private String workId = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view= getLayoutInflater().inflate(R.layout.action_bar,null);
-        initActionBar(view,TITLE);
+        View view = getLayoutInflater().inflate(R.layout.action_bar, null);
+        initActionBar(view, TITLE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
 
-        workId=getIntent().getExtras().getString(WorkItemAdapter.EXTRA);
+        workId = getIntent().getExtras().getString(WorkItemAdapter.EXTRA);
     }
 
-    private void getWork(){
-        Realm realm=Realm.getDefaultInstance();
-        WorkItem workItem=realm.where(WorkItem.class).equalTo("id",workId).findFirst();
+    private void getWork() {
+        Realm realm = Realm.getDefaultInstance();
+        WorkItem workItem = realm.where(WorkItem.class).equalTo("id", workId).findFirst();
 
         tvWork.setText(workItem.getWork());
-        if(workItem.getSubject()==null) {
+        if (workItem.getSubject() == null) {
             tvSubject.setText("");
-        } else{
+        } else {
             tvSubject.setText(workItem.getSubject().getSubject());
         }
-        Date deadline=workItem.getDeadline();
+        Date deadline = workItem.getDeadline();
         tvDate.setText(Utils.dateFormat.format(deadline));
         tvTime.setText(Utils.timeFormat.format(deadline));
-        tvAlarm.setText(Utils.alarms[workItem.getAlarm()-1]);
+        tvAlarm.setText(Utils.alarms[workItem.getAlarm() - 1]);
         tvMemo.setText(workItem.getMemo());
-        if(workItem.getImage()!=null) {
+        if (workItem.getImage() != null) {
             Glide.with(this).load(workItem.getImage().getPath()).into(ivImage);
         }
     }
@@ -79,19 +88,19 @@ public class GetWorkActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.modify_bar,menu);
+        getMenuInflater().inflate(R.menu.modify_bar, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
             case R.id.setting_modify:
-                Intent intent=new Intent(this,MakeWorkActivity.class);
-                intent.putExtra(EXTRA,workId);
+                Intent intent = new Intent(this, MakeWorkActivity.class);
+                intent.putExtra(EXTRA, workId);
                 startActivity(intent);
                 return true;
         }

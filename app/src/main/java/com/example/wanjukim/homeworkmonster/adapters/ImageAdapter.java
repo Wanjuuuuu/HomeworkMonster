@@ -1,8 +1,10 @@
 package com.example.wanjukim.homeworkmonster.adapters;
 
 import android.content.Context;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,33 +27,33 @@ import butterknife.OnClick;
  * Created by Wanju Kim on 2018-02-20.
  */
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder>  {
+public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<Image> images=new ArrayList<>();
+    private List<Image> images = new ArrayList<>();
     private ImageClickListener onClickListener;
 
     public ImageAdapter(Context context) {
         this.context = context;
-        this.layoutInflater=LayoutInflater.from(context);
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
-    public void addImages(List<Image> images){
+    public void addImages(List<Image> images) {
         this.images.addAll(images);
     }
 
-    public void setOnClickListener(ImageClickListener imageClickListener){
-        onClickListener=imageClickListener;
+    public void setOnClickListener(ImageClickListener imageClickListener) {
+        onClickListener = imageClickListener;
     }
 
     @Override
     public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ImageViewHolder(layoutInflater.inflate(R.layout.image_item,parent,false));
+        return new ImageViewHolder(layoutInflater.inflate(R.layout.image_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-        Image image=images.get(position);
+        Image image = images.get(position);
         holder.bind(image);
     }
 
@@ -60,7 +62,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         return images.size();
     }
 
-    class ImageViewHolder extends RecyclerView.ViewHolder{
+    class ImageViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.image_layout)
         ConstraintLayout choiceIndicator;
         @BindView(R.id.iv_photo)
@@ -74,14 +76,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
         public ImageViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
 
-        private void bind(Image image){
-            this.image=image;
+        private void bind(Image image) {
+            this.image = image;
             Glide.with(context).load(image.getPath()).into(ivImage);
 
-            if(image.isFlag()){
+            if (image.isFlag()) {
                 choiceIndicator.setBackgroundColor(colorGray);
             } else {
                 choiceIndicator.setBackgroundColor(colorDefault);
@@ -89,10 +91,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
 
         @OnClick(R.id.iv_photo)
-        public void onClick(){
+        public void onClick() {
             onClickListener.onClickImage(image);
 
-            for(Image image : images)
+            for (Image image : images)
                 image.setFlag(false);
 
             image.setFlag(true);
@@ -100,7 +102,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
 
     }
-    public interface ImageClickListener{
+
+    public interface ImageClickListener {
         void onClickImage(Image image);
     }
 }

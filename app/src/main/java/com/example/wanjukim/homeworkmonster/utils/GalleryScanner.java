@@ -15,39 +15,39 @@ import java.util.UUID;
  */
 
 public class GalleryScanner {
-    public static final int ALL_PHOTO_BUCKET=0;
+    public static final int ALL_PHOTO_BUCKET = 0;
 
-    private static final String[] projection={
+    private static final String[] projection = {
             MediaStore.Images.Media.BUCKET_ID,
             MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
             MediaStore.Images.Media._ID,
             MediaStore.Images.Media.DATA,
     };
 
-    public static List<Image> photoScan(int albumId){
-        String selection=null;
+    public static List<Image> photoScan(int albumId) {
+        String selection = null;
 
-        if(albumId!=ALL_PHOTO_BUCKET)
-            selection=String.format("%s=%d", MediaStore.Images.Media.BUCKET_ID,albumId);
+        if (albumId != ALL_PHOTO_BUCKET)
+            selection = String.format("%s=%d", MediaStore.Images.Media.BUCKET_ID, albumId);
 
-        Cursor cursor= MediaStore.Images.Media.query(
+        Cursor cursor = MediaStore.Images.Media.query(
                 HMApplication.getContext().getContentResolver(),
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 projection,
                 selection,
                 null,
-                MediaStore.Images.Media.DATE_TAKEN+" DESC"); // 뛰어쓰기
+                MediaStore.Images.Media.DATE_TAKEN + " DESC"); // 뛰어쓰기
 
-        int bucketIdColumn=cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_ID);
-        int pathColumn=cursor.getColumnIndex(MediaStore.Images.Media.DATA);
+        int bucketIdColumn = cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_ID);
+        int pathColumn = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
 
-        List<Image> photoList=new ArrayList<>();
+        List<Image> photoList = new ArrayList<>();
 
-        while(cursor.moveToNext()){
-            int bucketId=cursor.getInt(bucketIdColumn);
-            String path=cursor.getString(pathColumn);
+        while (cursor.moveToNext()) {
+            int bucketId = cursor.getInt(bucketIdColumn);
+            String path = cursor.getString(pathColumn);
 
-            Image photo=new Image();
+            Image photo = new Image();
             photo.setId(UUID.randomUUID().toString());
             photo.setBucketId(bucketId);
             photo.setPath(path);
