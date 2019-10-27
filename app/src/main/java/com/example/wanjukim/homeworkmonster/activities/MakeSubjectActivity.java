@@ -59,10 +59,8 @@ public class MakeSubjectActivity extends BaseActivity implements EventListenSpin
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = getLayoutInflater().inflate(R.layout.action_bar, null);
-        initActionBar(view, TITLE);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_setting_subject);
+        setSubActionBar(TITLE);
         ButterKnife.bind(this);
 
         Realm realm = Realm.getDefaultInstance();
