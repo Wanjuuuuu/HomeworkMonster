@@ -18,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.wanjukim.homeworkmonster.R;
@@ -47,8 +46,6 @@ public class MainActivity extends BaseActivity {
     NavigationView navigationView;
     @BindView(R.id.main_invisible_layout)
     LinearLayout invisibleLayout;
-    @BindView(R.id.iv_menu)
-    ImageView ivMenu;
     @BindView(R.id.add_button)
     FloatingActionsMenu fabMenu;
     @BindView(R.id.action_add_item)
@@ -73,9 +70,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = getLayoutInflater().inflate(R.layout.main_action_bar, null);
-        initActionBar(view, TITLE);
         setContentView(R.layout.activity_main);
+        setMainActionBar(TITLE);
         ButterKnife.bind(this);
 
         navigationView.setNavigationItemSelectedListener((item) -> {

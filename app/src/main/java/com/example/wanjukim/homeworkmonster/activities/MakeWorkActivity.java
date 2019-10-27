@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.bumptech.glide.Glide;
 import com.example.wanjukim.homeworkmonster.R;
@@ -83,10 +82,8 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = getLayoutInflater().inflate(R.layout.action_bar, null);
-        initActionBar(view, TITLE);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_setting);
+        setSubActionBar(TITLE);
         ButterKnife.bind(this);
 
         Realm realm = Realm.getDefaultInstance();

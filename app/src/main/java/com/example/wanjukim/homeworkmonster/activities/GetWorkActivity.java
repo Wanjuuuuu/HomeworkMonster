@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,10 +50,8 @@ public class GetWorkActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = getLayoutInflater().inflate(R.layout.action_bar, null);
-        initActionBar(view, TITLE);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_details);
+        setSubActionBar(TITLE);
         ButterKnife.bind(this);
 
         workId = getIntent().getExtras().getString(WorkItemAdapter.EXTRA);

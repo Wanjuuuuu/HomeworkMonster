@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.adapters.ImageAdapter;
@@ -48,10 +47,8 @@ public class GetImageActivity extends BaseActivity implements ImageAdapter.Image
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = getLayoutInflater().inflate(R.layout.action_bar, null);
-        initActionBar(view, TITLE);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_image);
+        setSubActionBar(TITLE);
         ButterKnife.bind(this);
 
         adapter = new ImageAdapter(this);

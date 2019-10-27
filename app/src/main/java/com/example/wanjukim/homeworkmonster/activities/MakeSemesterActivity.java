@@ -2,7 +2,6 @@ package com.example.wanjukim.homeworkmonster.activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -10,7 +9,6 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.wanjukim.homeworkmonster.R;
@@ -54,10 +52,8 @@ public class MakeSemesterActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = getLayoutInflater().inflate(R.layout.action_bar, null);
-        initActionBar(view, TITLE);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_setting_semester);
+        setSubActionBar(TITLE);
         ButterKnife.bind(this);
 
         if (getIntent().getExtras() == null) {
