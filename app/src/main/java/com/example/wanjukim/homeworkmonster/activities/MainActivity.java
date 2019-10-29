@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import com.example.wanjukim.homeworkmonster.models.State;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.core.view.GravityCompat;
@@ -84,7 +85,7 @@ public class MainActivity extends BaseActivity {
         Realm realm = Realm.getDefaultInstance();
 
         // get rid of ended works which are not updated yet
-        workItems = realm.where(WorkItem.class).equalTo("state", WorkItem.BEFORE).greaterThan(
+        workItems = realm.where(WorkItem.class).equalTo("state", State.BEFORE).greaterThan(
                 "deadline", new Date()).findAll().sort("deadline", Sort.ASCENDING);
 
         adapter = new WorkItemAdapter(this, workItems);
@@ -157,7 +158,7 @@ public class MainActivity extends BaseActivity {
 
         // get rid of ended works which are not updated yet
         Realm realm = Realm.getDefaultInstance();
-        workItems = realm.where(WorkItem.class).equalTo("state", WorkItem.BEFORE).greaterThan(
+        workItems = realm.where(WorkItem.class).equalTo("state", State.BEFORE).greaterThan(
                 "deadline", new Date()).findAll().sort("deadline", Sort.ASCENDING);
 
         adapter.notifyDataSetChanged();

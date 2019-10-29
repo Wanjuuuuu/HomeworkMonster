@@ -22,12 +22,6 @@ public class WorkItem extends RealmObject implements Serializable {
     private int state;
     private Image image;
 
-    public static final int BEFORE = 0;
-    public static final int SUBMIT = 1;
-    public static final int GIVEUP = 2;
-    public static final int END = 3;
-    public static final int DELETED = 4;
-
     @Ignore
     private boolean swipeState; //
 
@@ -44,9 +38,9 @@ public class WorkItem extends RealmObject implements Serializable {
         this.alarm = alarm;
         this.memo = memo;
         if (deadline.compareTo(new Date()) > 0) { // deadline > now
-            this.state = BEFORE;
+            this.state = State.BEFORE;
         } else {
-            this.state = END;
+            this.state = State.END;
         }
         this.swipeState = false;
     }
@@ -100,12 +94,12 @@ public class WorkItem extends RealmObject implements Serializable {
     }
 
     public int getState() {
-        if (state == SUBMIT || state == GIVEUP || state == DELETED) {
+        if (state == State.SUBMIT || state == State.GIVEUP || state == State.DELETED) {
             return state;
         }
 
         if (deadline.compareTo(new Date()) <= 0) {
-            setState(END);
+            setState(State.END);
         }
         return state;
     }

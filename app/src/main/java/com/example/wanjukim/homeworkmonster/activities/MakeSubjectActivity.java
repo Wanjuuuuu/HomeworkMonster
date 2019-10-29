@@ -51,7 +51,7 @@ public class MakeSubjectActivity extends BaseActivity implements EventListenSpin
     private final static String TAG = MakeSubjectActivity.class.getSimpleName();
     private final static String TITLE = "Subject";
 
-    private String subjectId = null;
+    private String subjectId;
     private Subject subjectItem;
     private RealmResults<Semester> semesters;
     private Semester semester;
@@ -66,16 +66,17 @@ public class MakeSubjectActivity extends BaseActivity implements EventListenSpin
         Realm realm = Realm.getDefaultInstance();
 
         semesters = realm.where(Semester.class).findAll();
-        Semester defSemster = semesters.where().equalTo("defaultFlag", true).findFirst();
+        Semester defSemester = semesters.where().equalTo("defaultFlag", true).findFirst();
 
         SpinnerAdapter semesterSpinnerAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, semesters);
         spinnerSemester.setAdapter(semesterSpinnerAdapter);
         spinnerSemester.setSpinnerEventListener(this);
-        spinnerSemester.setSelection(semesters.indexOf(defSemster));
+        spinnerSemester.setSelection(semesters.indexOf(defSemester));
 
-        if (getIntent().getExtras() != null) {
-            //
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+
         }
 
         spinnerSemester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

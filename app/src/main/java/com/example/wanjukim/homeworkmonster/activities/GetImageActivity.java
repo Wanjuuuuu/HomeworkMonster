@@ -42,7 +42,7 @@ public class GetImageActivity extends BaseActivity implements ImageAdapter.Image
     private final static String TAG = GetImageActivity.class.getSimpleName();
 
     private ImageAdapter adapter;
-    private Image image = null;
+    private Image image;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

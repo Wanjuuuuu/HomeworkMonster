@@ -41,9 +41,9 @@ public class EventListenSpinner extends AppCompatSpinner {
 
     public void performClosedEvent() {
         opened = false;
-//        if(listener!=null){
-        listener.onSpinnerClosed(this);
-//        }
+        if(listener != null){
+            listener.onSpinnerClosed(this);
+        }
     }
 
     public void setSpinnerEventListener(OnSpinnerEventsListener onSpinnerEventsListener) {

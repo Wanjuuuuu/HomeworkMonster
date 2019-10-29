@@ -18,6 +18,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
 import com.example.wanjukim.homeworkmonster.R;
 import com.example.wanjukim.homeworkmonster.activities.GetWorkActivity;
+import com.example.wanjukim.homeworkmonster.models.State;
 import com.example.wanjukim.homeworkmonster.models.WorkItem;
 import com.example.wanjukim.homeworkmonster.utils.Utils;
 
@@ -133,7 +134,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             Realm realm = Realm.getDefaultInstance();
 
             realm.beginTransaction();
-            workItem.setState(WorkItem.GIVEUP);
+            workItem.setState(State.GIVEUP);
             realm.commitTransaction();
 
             notifyDataSetChanged();
@@ -147,7 +148,7 @@ public class WorkItemAdapter extends RecyclerSwipeAdapter<WorkItemAdapter.WorkIt
             Realm realm = Realm.getDefaultInstance();
 
             realm.beginTransaction();
-            workItem.setState(WorkItem.SUBMIT);
+            workItem.setState(State.SUBMIT);
             realm.commitTransaction();
 
             notifyDataSetChanged();

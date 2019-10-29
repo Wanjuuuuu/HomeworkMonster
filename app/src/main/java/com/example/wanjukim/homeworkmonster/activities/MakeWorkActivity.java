@@ -71,13 +71,13 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
     private final static String TITLE = "Homework"; //
     public final static int RESULT = 1994;
 
-    private String workId = null;
+    private String workId;
     private WorkItem workItem;
     private RealmResults<Subject> subjects;
     private Subject subject;
     private int alarm;
     private Date date;
-    private Image image = null;
+    private Image image;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,13 +102,14 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
 
         /* Branch : Add or Modify workItem */
 
-        if (getIntent().getExtras() == null) { // workId==null
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
             Log.d(TAG, "if extras is null");
             date = Utils.getDate(new Date());
             tvDate.setText(Utils.dateFormat.format(date));
             tvTime.setText(Utils.timeFormat.format(date));
         } else {
-            workId = getIntent().getExtras().getString(GetWorkActivity.EXTRA);
+            workId = bundle.getString(GetWorkActivity.EXTRA);
 
             workItem = realm.where(WorkItem.class).equalTo("id", workId).findFirst();
 
@@ -135,7 +136,6 @@ public class MakeWorkActivity extends BaseActivity implements EventListenSpinner
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 subject = (Subject) spinnerSubject.getSelectedItem(); // TODO : default subject
-                // exists? null???
             }
         });
 

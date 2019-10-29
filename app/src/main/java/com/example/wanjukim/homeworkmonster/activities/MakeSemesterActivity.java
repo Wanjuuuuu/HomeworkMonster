@@ -44,7 +44,7 @@ public class MakeSemesterActivity extends BaseActivity {
     private final static String TAG = MakeSemesterActivity.class.getSimpleName();
     private final static String TITLE = "Semester";
 
-    private String semesterId = null;
+    private String semesterId;
     private Semester semesterItem;
     private Date startDate;
     private Date endDate;
@@ -56,7 +56,8 @@ public class MakeSemesterActivity extends BaseActivity {
         setSubActionBar(TITLE);
         ButterKnife.bind(this);
 
-        if (getIntent().getExtras() == null) {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
             startDate = Utils.getDate(new Date());
             endDate = Utils.getDate(new Date());
             tvStartDate.setText(Utils.dateFormat.format(startDate));
@@ -94,7 +95,7 @@ public class MakeSemesterActivity extends BaseActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                new DatePickerDialogImpl(endDate, tvStartDate), year, month, day);
+                new DatePickerDialogImpl(endDate, tvEndDate), year, month, day);
         datePickerDialog.getDatePicker().setMinDate(startDate.getTime());
         datePickerDialog.show();
     }
@@ -107,37 +108,30 @@ public class MakeSemesterActivity extends BaseActivity {
                 return true;
             case R.id.setting_save:
                 if (semesterId == null) {
-                    if (swDefault.isChecked()) { // UI thread 중지 시키는거..;;;
+                    if (swDefault.isChecked()) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setMessage(R.string.dialog_default_change)
                                 .setCancelable(false)
                                 .setPositiveButton(R.string.dialog_positive_button, (dialog, which) -> {
                                     dialog.dismiss();
                                     changeDefSemester();
-                                    addSemesterItem(); //
-                                    finish(); //
+                                    addSemesterItem();
+                                    finish();
                                 })
-                                .setNegativeButton(R.string.dialog_negative_button, (dialog, which) -> {
-                                    dialog.cancel();
-                                })
+                                .setNegativeButton(R.string.dialog_negative_button, (dialog, which) -> dialog.cancel())
                                 .show();
-                } else {
-                    addSemesterItem();
+                    } else {
+                        addSemesterItem();
+                        finish();
+                    }
+                } else{
+                    modifySemesterItem();
                     finish();
                 }
-//                    addSemesterItem(); // Thread sync..??//
-        } else{
-            modifySemesterItem();
-            finish();
+                return true;
         }
-//                    finish(); //
-        return true;
+        return super.onOptionsItemSelected(item);
     }
-        return super.
-
-    onOptionsItemSelected(item);
-
-}
 
     private void changeDefSemester() {
         Realm realm = Realm.getDefaultInstance();
